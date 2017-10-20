@@ -1,7 +1,7 @@
 #F-ZERO GX SOURCE FILES IGNORE
-/Assets/Resources/F-ZeroGX_JP
-/Assets/Resources/F-ZeroGX_PAL
-/Assets/Resources/F-ZeroGX_EN
+/Assets/Resources/FZGX_JP
+/Assets/Resources/FZGX_PAL
+/Assets/Resources/FZGX_EN
 
 # UNITY GITIGNORE
 /[Ll]ibrary/
