@@ -13,6 +13,8 @@ namespace FzgxData.ImportExport
         [SerializeField]
         private FzgxStage index;
         [SerializeField]
+        private string resourcePath = "FZGX_EN/stage";
+        [SerializeField]
         private GMA GMA;
 
         [SerializeField]
@@ -34,7 +36,7 @@ namespace FzgxData.ImportExport
         {
             get
             {
-                return string.Format("GMA/st{0},lz", ((int)index).ToString("D2"));
+                return string.Format("{1}/st{0},lz", ((int)index).ToString("D2"), resourcePath);
             }
         }
         //string.Format("COLI/COLI_COURSE{0},lz", ((int) currentStage).ToString("D2"));

@@ -82,6 +82,8 @@ public class Stage_Editor : Editor {
         base.OnInspectorGUI();
         editorTarget = target as Stage;
 
+        Stage.resourcePath = EditorGUILayout.TextField(Stage.resourcePath);
+
         // Label that displays current stage
         GUI.enabled = false;
         EditorGUILayout.LabelField(string.Format("Current Stage: {0} : {1}", ((int)Stage.currentStage).ToString("00"), Stage.currentStage.ToString().Replace('_', ' ')));

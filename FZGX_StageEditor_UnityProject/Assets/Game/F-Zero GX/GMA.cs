@@ -504,7 +504,7 @@ namespace FzgxData.FileStructures
                 unk_0x58 = reader.GetUInt32();
                 unk_0x5C = reader.GetUInt32();
 
-                Debug.Log(unk_0x10);
+                //Debug.Log(unk_0x10);
             }
             #endregion
 

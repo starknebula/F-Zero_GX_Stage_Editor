@@ -15,6 +15,7 @@ namespace FzgxData
     {
         public static FzgxStage currentStage = FzgxStage.MUTE_CITY_Twist_Road;
         public static FzgxStage lastStage = FzgxStage.EX_Victory_Lap;
+        public static string resourcePath = "FZGX_EN/stage";
 
         // Used to modify how Vector3s are read from file to compensate for difference in winding
         public static readonly bool doInverseWindingPositionX = true;
@@ -81,7 +82,10 @@ namespace FzgxData
 
                 // Load file based on name. GX stores it's files as COLI_COURSE##,lz. If the number exceeds 99, the number
                 // section grows with it. ie: COLI_COURSE###,lz
-                stageFile = Resources.Load(string.Format("COLI/COLI_COURSE{0},lz", ((int)currentStage).ToString("D2"))) as TextAsset;
+                string filename = string.Format("{1}/COLI_COURSE{0},lz", ((int)currentStage).ToString("D2"), resourcePath);
+                Debug.Log(filename);
+
+                stageFile = Resources.Load(filename) as TextAsset;
 
                 // Load file as bytes
                 fileStream = new MemoryStream(stageFile.bytes);
