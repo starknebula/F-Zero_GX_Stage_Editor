@@ -835,6 +835,9 @@ namespace GameCube.GX.Enumerated_Types
     }
 
     // P
+    /// <summary>
+    /// Performance counter 0 metrics.
+    /// </summary>
     public enum GXPerf0
     {
         GX_PERF0_VERTICES,
@@ -877,6 +880,9 @@ namespace GameCube.GX.Enumerated_Types
         GX_PERF0_CLOCKS,
         GX_PERF0_NONE,
     }
+    /// <summary>
+    /// Performance counter 1 metrics.
+    /// </summary>
     public enum GXPerf1
     {
         GX_PERF1_TEXELS,
@@ -906,6 +912,9 @@ namespace GameCube.GX.Enumerated_Types
         GX_PERF1_CLOCKS,
         GX_PERF1_NONE,
     }
+    /// <summary>
+    /// Frame buffer pixel formats.
+    /// </summary>
     public enum GXPixelFmt
     {
         GX_PF_RGB8_Z24,
@@ -917,6 +926,9 @@ namespace GameCube.GX.Enumerated_Types
         GX_PF_V8,
         GX_PF_YUV420,
     }
+    /// <summary>
+    /// Position-Normal matrix index.
+    /// </summary>
     public enum GXPosNrmMtx
     {
         GX_PNMTX0 = 0,
@@ -945,12 +957,16 @@ namespace GameCube.GX.Enumerated_Types
         GX_TRIANGLEFAN = 0xA0,
         GX_QUADS = 0x80,
     }
+    /// <summary>
+    /// Projection type.
+    /// </summary>
     public enum GXProjectionType
     {
         GX_PERSPECTIVE,
         GX_ORTHOGRAPHIC,
     }
     /// <summary>
+    /// Post-transform texture matrix index.
     /// Revision 2 or greater only
     /// </summary>
     public enum GXPTTexMtx
@@ -979,6 +995,9 @@ namespace GameCube.GX.Enumerated_Types
     }
 
     // S
+    /// <summary>
+    /// Type of the function for the illumination distribution on spotlight.
+    /// </summary>
     public enum GXSpotFn
     {
         GX_SP_OFF = 0,
@@ -991,6 +1010,9 @@ namespace GameCube.GX.Enumerated_Types
     }
 
     // T
+    /// <summary>
+    /// Texture Environment (Tev) input control.
+    /// </summary>
     public enum GXTevAlphaArg_Rev1
     {
         GX_CA_APREV,
@@ -1002,6 +1024,9 @@ namespace GameCube.GX.Enumerated_Types
         GX_CA_ONE,
         GX_CA_ZERO,
     }
+    /// <summary>
+    /// Texture Environment (Tev) input control.
+    /// </summary>
     public enum GXTevAlphaArg_Rev2
     {
         GX_CA_APREV,
@@ -1013,6 +1038,9 @@ namespace GameCube.GX.Enumerated_Types
         GX_CA_KONST,
         GX_CA_ZERO,
     }
+    /// <summary>
+    /// Tev bias values.
+    /// </summary>
     public enum GXTevBias
     {
         GX_TB_ZERO,
@@ -1020,6 +1048,9 @@ namespace GameCube.GX.Enumerated_Types
         GX_TB_SUBHALF,
         GX_MAX_TEVBIAS,
     }
+    /// <summary>
+    /// Texture Environment (Tev) clamp modes.
+    /// </summary>
     public enum GXTevClampMode
     {
         GX_TC_LINEAR,
@@ -1028,6 +1059,9 @@ namespace GameCube.GX.Enumerated_Types
         GX_TC_LE,
         GX_MAX_TEVCLAMPMODE
     }
+    /// <summary>
+    /// Texture Environment (Tev) input control.
+    /// </summary>
     public enum GXTevColorArg_Rev1
     {
         GX_CC_CPREV,
@@ -1051,6 +1085,9 @@ namespace GameCube.GX.Enumerated_Types
         GX_CC_TEXGGG,
         GX_CC_TEXBBB
     }
+    /// <summary>
+    /// Texture Environment (Tev) input control.
+    /// </summary>
     public enum GXTevColorArg_Rev2
     {
         GX_CC_CPREV,
@@ -1071,6 +1108,7 @@ namespace GameCube.GX.Enumerated_Types
         GX_CC_ZERO
     }
     /// <summary>
+    /// TEV color channel components.
     /// GX Revision 2 or later only
     /// </summary>
     public enum GXTevColorChan
@@ -1081,6 +1119,7 @@ namespace GameCube.GX.Enumerated_Types
         GX_CH_ALPHA
     }
     /// <summary>
+    /// TEV constant alpha input selection.
     /// GX Revision 2 or later only
     /// </summary>
     public enum GXTevKAlphaSel
@@ -1111,6 +1150,9 @@ namespace GameCube.GX.Enumerated_Types
         GX_TEV_KASEL_K2_A = 0x1E,
         GX_TEV_KASEL_K3_A = 0x1F
     }
+    /// <summary>
+    /// Texture Environment "konstant" color register name.
+    /// </summary>
     public enum GXTevKColorID
     {
         GX_KCOLOR0 = 0,
@@ -1120,6 +1162,7 @@ namespace GameCube.GX.Enumerated_Types
         GX_MAX_KCOLOR
     }
     /// <summary>
+    /// TEV constant color input selection.
     /// GX Revision 2 or later only
     /// </summary>
     public enum GXTevKColorSel
@@ -1155,6 +1198,9 @@ namespace GameCube.GX.Enumerated_Types
         GX_TEV_KCSEL_K3_A = 0x1F
 
     }
+    /// <summary>
+    /// Texture Environment (Tev) control.
+    /// </summary>
     public enum GXTevMode
     {
         GX_MODULATE,
@@ -1163,11 +1209,17 @@ namespace GameCube.GX.Enumerated_Types
         GX_REPLACE,
         GX_PASSCLR
     }
+    /// <summary>
+    /// Texture Environment (Tev) control.
+    /// </summary>
     public enum GXTevOp_Rev1
     {
         GX_TEV_ADD,
         GX_TEV_SUB
     }
+    /// <summary>
+    /// Texture Environment (Tev) control.
+    /// </summary>
     public enum GXTevOp_Rev2
     {
         GX_TEV_ADD = 0,
@@ -1191,6 +1243,9 @@ namespace GameCube.GX.Enumerated_Types
         /// </summary>
         GX_TEV_COMP_A8_EQ = GX_TEV_COMP_RGB8_EQ,
     }
+    /// <summary>
+    /// Texture Environment source/destination register name.  GX_TEVPREV is used as the default register for passing results from one stage to another. GX_TEVPREV must be used as the output register in the last active Tev stage.
+    /// </summary>
     public enum GXTevRegID
     {
         GX_TEVPREV = 0,
@@ -1200,6 +1255,9 @@ namespace GameCube.GX.Enumerated_Types
         GX_MAX_TEVREG
 
     }
+    /// <summary>
+    /// Texture Environment (Tev)  control.
+    /// </summary>
     public enum GXTevScale
     {
         GX_CS_SCALE_1,
@@ -1208,6 +1266,9 @@ namespace GameCube.GX.Enumerated_Types
         GX_CS_DIVIDE_2,
         GX_MAX_TEVSCALE
     }
+    /// <summary>
+    /// Texture Environment (Tev) stage name.
+    /// </summary>
     public enum GXTevStageID
     {
         GX_TEVSTAGE0,
@@ -1229,6 +1290,7 @@ namespace GameCube.GX.Enumerated_Types
         GX_MAX_TEVSTAGE
     }
     /// <summary>
+    /// TEV color swap table entries.
     /// GX Revision 2 or later only
     /// </summary>
     public enum GXTevSwapSel
@@ -1239,6 +1301,9 @@ namespace GameCube.GX.Enumerated_Types
         GX_TEV_SWAP3,
         GX_MAX_TEVSWAP
     }
+    /// <summary>
+    /// Size of texture cache regions.
+    /// </summary>
     public enum GXTexCacheSize
     {
         GX_TEXCACHE_32K,
@@ -1246,6 +1311,9 @@ namespace GameCube.GX.Enumerated_Types
         GX_TEXCACHE_512K,
         GX_TEXCACHE_NONE
     }
+    /// <summary>
+    /// Name of texture coordinate.
+    /// </summary>
     public enum GXTexCoordID
     {
         /// <summary>
@@ -1284,6 +1352,9 @@ namespace GameCube.GX.Enumerated_Types
         GX_TEXCOORD_NULL = 0xff
 
     }
+    /// <summary>
+    /// Texture filter types.
+    /// </summary>
     public enum GXTexFilter
     {
         GX_NEAR,
@@ -1293,6 +1364,11 @@ namespace GameCube.GX.Enumerated_Types
         GX_NEAR_MIP_LIN,
         GX_LIN_MIP_LIN
     }
+    /// <summary>
+    /// RGB, RGBA, Intensity, Intensity/Alpha, Compressed, and Z texture format types.   See GXCITexFmt for color index formats.
+    ///
+    /// HW2 adds additional formats that are only useable with GXSetTexCopyDst.In addition to the regular formats, these CTF formats specify how data is copied out of the EFB into a texture in main memory.  In order to actually use that texture, one must specify a non-copy format of matching size.For example, if copying using GX_CTF_RG8, one would apply the resulting texture using GX_TF_IA8.
+    /// </summary>
     public enum GXTexFmt_Rev1
     {
         GX_TF_I4 = 0x0,
@@ -1308,6 +1384,11 @@ namespace GameCube.GX.Enumerated_Types
         GX_TF_Z16 = (0x10 | GX_TF_IA8),
         GX_TF_Z24X8 = (0x10 | GX_TF_RGBA8)
     }
+    /// <summary>
+    /// RGB, RGBA, Intensity, Intensity/Alpha, Compressed, and Z texture format types.   See GXCITexFmt for color index formats.
+    ///
+    /// HW2 adds additional formats that are only useable with GXSetTexCopyDst.In addition to the regular formats, these CTF formats specify how data is copied out of the EFB into a texture in main memory.  In order to actually use that texture, one must specify a non-copy format of matching size.For example, if copying using GX_CTF_RG8, one would apply the resulting texture using GX_TF_IA8.
+    /// </summary>
     public enum GXTexFmt_Rev2
     {
         // defines
@@ -1346,6 +1427,9 @@ namespace GameCube.GX.Enumerated_Types
 
         GX_TF_A8 = GX_CTF_A8 // to keep compatibility
     }
+    /// <summary>
+    /// Texture coordinate source parameter.
+    /// </summary>
     public enum GXTexGenSrc
     {
         GX_TG_POS = 0,
@@ -1370,6 +1454,9 @@ namespace GameCube.GX.Enumerated_Types
         GX_TG_COLOR0,
         GX_TG_COLOR1
     }
+    /// <summary>
+    /// Texture coordinate generation method.
+    /// </summary>
     public enum GXTexGenType
     {
         GX_TG_MTX3x4 = 0,
@@ -1384,6 +1471,9 @@ namespace GameCube.GX.Enumerated_Types
         GX_TG_BUMP7,
         GX_TG_SRTG
     }
+    /// <summary>
+    /// Texture map name.
+    /// </summary>
     public enum GXTexMapID
     {
         GX_TEXMAP0,
@@ -1402,6 +1492,9 @@ namespace GameCube.GX.Enumerated_Types
         /// </summary>
         GX_TEX_DISABLE = 0x100
     }
+    /// <summary>
+    /// Texture matrix index.
+    /// </summary>
     public enum GXTexMtx
     {
         GX_TEXMTX0 = 30,
@@ -1416,11 +1509,17 @@ namespace GameCube.GX.Enumerated_Types
         GX_TEXMTX9 = 57,
         GX_IDENTITY = 60
     }
+    /// <summary>
+    /// Texture matrix type.
+    /// </summary>
     public enum GXTexMtxType
     {
         GX_MTX3x4 = 0,
         GX_MTX2x4
     }
+    /// <summary>
+    /// Texture offset values.
+    /// </summary>
     public enum GXTexOffset
     {
         GX_TO_ZERO,
@@ -1431,6 +1530,9 @@ namespace GameCube.GX.Enumerated_Types
         GX_TO_ONE,
         GX_MAX_TEXOFFSET
     }
+    /// <summary>
+    /// Texture coordinate controls.
+    /// </summary>
     public enum GXTexWrapMode
     {
         GX_CLAMP,
@@ -1438,6 +1540,36 @@ namespace GameCube.GX.Enumerated_Types
         GX_MIRROR,
         GX_MAX_TEXWRAPMODE
     }
+    /// <summary>
+    /// Name of Texture Look-Up Table (TLUT) in texture memory.  Each table GX_TLUT0-15  contains 256 entries, 16b per entry.  GX_BIGTLUT0-3 contains 1024 entries, 16b per entry.  Used for configuring texture memory in GXInit.
+    /// </summary>
+    public enum GXTlut
+    {
+        // default 256-entry TLUTs
+        GX_TLUT0 = 0,
+        GX_TLUT1,
+        GX_TLUT2,
+        GX_TLUT3,
+        GX_TLUT4,
+        GX_TLUT5,
+        GX_TLUT6,
+        GX_TLUT7,
+        GX_TLUT8,
+        GX_TLUT9,
+        GX_TLUT10,
+        GX_TLUT11,
+        GX_TLUT12,
+        GX_TLUT13,
+        GX_TLUT14,
+        GX_TLUT15,
+        GX_BIGTLUT0,
+        GX_BIGTLUT1,
+        GX_BIGTLUT2,
+        GX_BIGTLUT3,
+    }
+    /// <summary>
+    /// Texture Look-Up Table (TLUT) formats.
+    /// </summary>
     public enum GXTlutFmt
     {
         GX_TL_IA8 = 0x0,
@@ -1445,6 +1577,9 @@ namespace GameCube.GX.Enumerated_Types
         GX_TL_RGB5A3 = 0x2,
         GX_MAX_TLUTFMT
     }
+    /// <summary>
+    /// Size of the Texture Look-Up Table (TLUT) in texture memory.
+    /// </summary>
     public enum GXTlutSize
     {
         GX_TLUT_16 = 1, // number of 16 entry blocks.
@@ -1459,6 +1594,9 @@ namespace GameCube.GX.Enumerated_Types
         GX_TLUT_8K = 512,
         GX_TLUT_16K = 1024
     }
+    /// <summary>
+    /// Vertex cache performance counter parameters.
+    /// </summary>
     public enum GXVCachePerf
     {
         GX_VC_POS,
@@ -1494,6 +1632,9 @@ namespace GameCube.GX.Enumerated_Types
     }
 
     // Z
+    /// <summary>
+    /// Compressed Z formats.
+    /// </summary>
     public enum GXZFmt16
     {
         GX_ZC_LINEAR,
@@ -1501,6 +1642,9 @@ namespace GameCube.GX.Enumerated_Types
         GX_ZC_MID,
         GX_ZC_FAR
     }
+    /// <summary>
+    /// Z texture operations.
+    /// </summary>
     public enum GXZTexOp
     {
         GX_ZT_DISABLE,
