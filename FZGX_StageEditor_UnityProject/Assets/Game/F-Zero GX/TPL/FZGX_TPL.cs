@@ -74,9 +74,14 @@ namespace GameCube.Games.FZeroGX.FileStructures
             else if (index < 0)
                 throw new System.IndexOutOfRangeException("Index must be greater than 0!");
 
-            // TODO
-            // Load using GameCube.GX.Texture methods
+            //
             TEXDescriptor desc = descriptorArray[index];
+            if (desc.isNullEntry > 0)
+            {
+                tex = null;
+                return false;
+            }
+
             try
             {
                 GxTextureFormatCodec codec = GxTextureFormatCodec.GetCodec((GxTextureFormat)desc.format);
@@ -91,7 +96,9 @@ namespace GameCube.Games.FZeroGX.FileStructures
                 for (int y = 0; y < desc.height; y++)
                     for (int x = 0; x < desc.width; x++)
                     {
-                        tex.SetPixel(x, y, new Color32(
+                        // Invert Y because LibGXTexture return array upside-down
+                        // ei 'x, (desc.width - y)' instead of 'x, y'
+                        tex.SetPixel(x, (desc.width - y), new Color32(
                             texRGBA[(y * desc.width + x) * 4 + 0],
                             texRGBA[(y * desc.width + x) * 4 + 1],
                             texRGBA[(y * desc.width + x) * 4 + 2],
@@ -128,7 +135,7 @@ namespace GameCube.Games.FZeroGX.FileStructures
             #endregion
             #region MEMBERS
             public ushort pad16;
-            public byte entryOccupied;
+            public byte isNullEntry;
             public byte format;
 
             public uint dataPtr; // pointer
@@ -151,13 +158,13 @@ namespace GameCube.Games.FZeroGX.FileStructures
 
                 // Read
                 pad16 = reader.GetUInt16();
-                entryOccupied = reader.GetByte();
+                isNullEntry = reader.GetByte();
                 format = reader.GetByte();
 
                 dataPtr = reader.GetUInt32();
 
-                height = reader.GetUInt16();
                 width = reader.GetUInt16();
+                height = reader.GetUInt16();
 
                 powerOf = reader.GetUInt16();
                 endianness = reader.GetUInt16();
