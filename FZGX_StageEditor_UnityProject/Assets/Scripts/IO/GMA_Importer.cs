@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using GameCube.FileStructures;
+using GameCube.Games.FZeroGX.FileStructures;
 using GameCube.Games.FZeroGX.ImportExport;
 
 namespace GameCube.Games.FZeroGX.ImportExport

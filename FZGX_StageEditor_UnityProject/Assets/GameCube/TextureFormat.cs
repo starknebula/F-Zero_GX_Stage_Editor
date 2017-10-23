@@ -1,7 +1,10 @@
-﻿/// http://hitmen.c02.at/files/yagcd/yagcd/chap15.html
-namespace GameCube.GFX.GX.Texture
+﻿using UnityEngine;
+using System;
+
+/// http://hitmen.c02.at/files/yagcd/yagcd/chap15.html
+namespace GameCube.GX.Texture
 {
-    public enum TextureFormat
+    public enum GXTextureFormat
     {
         /// <summary>
         /// 4 bit intensity, 8x8 tiles
@@ -58,7 +61,7 @@ namespace GameCube.GFX.GX.Texture
 
     //    public void LoadFromRaw(TextureFormat format)
     //    {
-    //        throw new NotImplementedException();
+    //        texture = new Texture2D();
     //    }
     //}
 

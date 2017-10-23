@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace GameCube.FileStructures
+namespace GameCube.Games.FZeroGX.FileStructures
 {
     [Serializable]
     public sealed class GMA : SerializableMember
