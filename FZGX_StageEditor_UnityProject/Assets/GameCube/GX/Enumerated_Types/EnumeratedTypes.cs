@@ -1,5 +1,5 @@
 ﻿/// <summary>
-/// A C# equivalent to GXEnums.h from the Nintendo GameCube SDK.
+/// A C# equivalent of GXEnums.h from the Nintendo GameCube SDK.
 /// Comments taken from Nintendo GameCube SDK manual and code GXEnums.h comments.
 /// </summary>
 namespace GameCube.GX.Enumerated_Types
@@ -1392,8 +1392,8 @@ namespace GameCube.GX.Enumerated_Types
     public enum GXTexFmt_Rev2
     {
         // defines
-        _GX_TF_CTF    = 0x20, /* copy-texture-format only */
-        _GX_TF_ZTF    = 0x10, /* Z-texture-format */
+        _GX_TF_CTF = 0x20, /* copy-texture-format only */
+        _GX_TF_ZTF = 0x10, /* Z-texture-format */
         // end defines
 
         GX_TF_I4 = 0x0,
@@ -1629,6 +1629,30 @@ namespace GameCube.GX.Enumerated_Types
         GX_VTXFMT6,
         GX_VTXFMT7,
         GX_MAX_VTXFMT,
+    }
+
+    // W
+    /// <summary>
+    /// Verify levels.
+    /// </summary>
+    public enum GXWarningLevel
+    {
+        /// <summary>
+        /// Disable runtime warnings.
+        /// </summary>
+        GX_WARN_NONE,
+        /// <summary>
+        /// Check and report only severe warnings.
+        /// </summary>
+        GX_WARN_SEVERE,
+        /// <summary>
+        /// Check and report only severe and medium warnings.
+        /// </summary>
+        GX_WARN_MEDIUM,
+        /// <summary>
+        /// Check and report all warnings.
+        /// </summary>
+        GX_WARN_ALL,
     }
 
     // Z

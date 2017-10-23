@@ -8,7 +8,7 @@ using UnityEditor;
 using GX_Data;
 using GX_Data.SplineData;
 
-namespace FzgxData
+namespace GameCube
 {
     public class DisplaySpline : MonoBehaviour, IFZGXEditorStageEventReceiver
     {

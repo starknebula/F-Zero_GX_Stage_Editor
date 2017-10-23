@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 
-using FzgxData;
+using GameCube;
 
 namespace GX_Data.Object_0x48
 {
@@ -176,7 +176,7 @@ namespace GX_Data.Object_0x48
             Vector3 position = new Vector3();
 
             normalX = reader.GetVector3Normal();
-            position.x = reader.GetFloat() * ((Stage.doInverseWindingPositionX) ? -1f : 1f);
+            position.x = reader.GetFloat() * ((StageManager.doInverseWindingPositionX) ? -1f : 1f);
             normalY = reader.GetVector3Normal();
             position.y = reader.GetFloat();
             normalZ = reader.GetVector3Normal();

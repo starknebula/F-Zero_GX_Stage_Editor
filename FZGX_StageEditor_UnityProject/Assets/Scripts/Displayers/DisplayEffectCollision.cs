@@ -5,8 +5,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using FzgxData;
-using FzgxData.COLI;
+using GameCube;
+using GameCube.COLI;
 using System.IO;
 
 public class DisplayEffectCollision : MonoBehaviour, IFZGXEditorStageEventReceiver
@@ -43,10 +43,10 @@ public class DisplayEffectCollision : MonoBehaviour, IFZGXEditorStageEventReceiv
     }
     public void StageLoaded(BinaryReader reader)
     {
-        coli = new FzgxData.COLI.Collision(reader);
+        coli = new GameCube.COLI.Collision(reader);
     }
 
-    public static FzgxData.COLI.Collision coli;
+    public static GameCube.COLI.Collision coli;
 
     void OnDrawGizmos()
     {

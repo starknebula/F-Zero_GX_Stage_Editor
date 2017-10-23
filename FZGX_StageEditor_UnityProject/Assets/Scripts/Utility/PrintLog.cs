@@ -16,6 +16,13 @@ public static class PrintLog
             return Directory.GetParent(Environment.GetFolderPath(Environment.SpecialFolder.Personal)).FullName + Path.DirectorySeparatorChar;
         }
     }
+    private static string TSVDirectory
+    {
+        get
+        {
+            return Path.Combine(Directory.GetParent(Environment.GetFolderPath(Environment.SpecialFolder.Personal)).FullName, "Generated_TSV") + Path.DirectorySeparatorChar;
+        }
+    }
 
 
     public static void WriteToBuffer(string str)
@@ -36,7 +43,7 @@ public static class PrintLog
         buffer.Flush();
 
         // https://msdn.microsoft.com/en-us/library/8bh11f1k.aspx
-        using (FileStream file = new FileStream(PersonalDirectory + name + ".tsv", FileMode.Create, FileAccess.Write))
+        using (FileStream file = new FileStream(TSVDirectory + name + ".tsv", FileMode.Create, FileAccess.Write))
         {
             byte[] byteStream = fileStream.ToArray();
             file.Write(byteStream, 0, byteStream.Length);
@@ -48,7 +55,7 @@ public static class PrintLog
     }
     public static void SaveStream(string name)
     {
-        //SaveAndClearStream(name, FileMode.Create);
+        SaveAndClearStream(name, FileMode.Create);
     }
 
     public static void WriteComment(string comment)

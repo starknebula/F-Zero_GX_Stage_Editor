@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace FzgxData.FileStructures
+namespace GameCube.FileStructures
 {
     [Serializable]
-    public sealed class GMA : Member
+    public sealed class GMA : SerializableMember
     {
         public GMA() { }
         public GMA(BinaryReader reader)
@@ -196,7 +196,7 @@ namespace FzgxData.FileStructures
         }
 
         [Serializable]
-        public sealed class GCMF : Member
+        public sealed class GCMF : SerializableMember
         {
             /// <summary>
             /// 0x40
@@ -818,9 +818,9 @@ namespace FzgxData.FileStructures
             private void Deserialize_0x99(BinaryReader reader, GC_VertexFlags flags)
             {
                 if (BitCompare(flags, GC_VertexFlags.GX_VA_POS))
-                    position = reader.GetShortVector3(true);
+                    throw new NotImplementedException(reader.BaseStream.Position.ToString("X"));
                 if (BitCompare(flags, GC_VertexFlags.GX_VA_NRM))
-                    normal = reader.GetShortVector3(true);
+                    throw new NotImplementedException(reader.BaseStream.Position.ToString("X"));
 
                 if (BitCompare(flags, GC_VertexFlags.GX_VA_CLR0))
                     throw new NotImplementedException(reader.BaseStream.Position.ToString("X"));
@@ -830,13 +830,13 @@ namespace FzgxData.FileStructures
 
 
                 if (BitCompare(flags, GC_VertexFlags.GX_VA_TEX0))
-                    tex0 = reader.GetShortVector2();
+                    throw new NotImplementedException(reader.BaseStream.Position.ToString("X"));
                 if (BitCompare(flags, GC_VertexFlags.GX_VA_TEX1))
-                    tex1 = reader.GetShortVector2();
+                    throw new NotImplementedException(reader.BaseStream.Position.ToString("X"));
                 if (BitCompare(flags, GC_VertexFlags.GX_VA_TEX2))
-                    tex2 = reader.GetShortVector2();
+                    throw new NotImplementedException(reader.BaseStream.Position.ToString("X"));
                 if (BitCompare(flags, GC_VertexFlags.GX_VA_TEX3))
-                    tex3 = reader.GetShortVector2();
+                    throw new NotImplementedException(reader.BaseStream.Position.ToString("X"));
 
                 if (BitCompare(flags, GC_VertexFlags.GX_VA_NBT))
                 {

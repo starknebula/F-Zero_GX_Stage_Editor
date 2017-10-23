@@ -10,7 +10,7 @@ using GX_Data;
 using GX_Data.Object_0x48;
 using GX_Data.SplineData;
 
-namespace FzgxData
+namespace GameCube
 {
     public class DisplayObjectTransform : MonoBehaviour, IFZGXEditorStageEventReceiver
     {
@@ -30,7 +30,7 @@ namespace FzgxData
         }
         public void StageLoaded(BinaryReader reader)
         {
-            otherData = new GX_Object_0x48(Stage.Reader);
+            otherData = new GX_Object_0x48(StageManager.Reader);
         }
 
 

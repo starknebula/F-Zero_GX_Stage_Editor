@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using FzgxData.ImportExport;
-using FzgxData.FileStructures;
+using GameCube.Games.FZeroGX.ImportExport;
+using GameCube.FileStructures;
 
 namespace UnityEditor
 {

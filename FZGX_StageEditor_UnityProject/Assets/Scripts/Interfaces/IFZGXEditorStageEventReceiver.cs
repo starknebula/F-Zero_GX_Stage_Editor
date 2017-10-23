@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace FzgxData
+namespace GameCube
 {
     internal interface IFZGXEditorStageEventReceiver
     {

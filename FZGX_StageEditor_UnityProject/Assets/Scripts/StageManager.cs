@@ -3,18 +3,18 @@
 
 using UnityEngine;
 using System.IO;
-using GameCube.Games.FzeroGX;
+using GameCube.Games.FZeroGX;
 
-namespace FzgxData
+namespace GameCube
 {
     /// <summary>
     /// Singleton script for controlling stage loading and stream management
     /// </summary>
     [ExecuteInEditMode]
-    public class Stage : MonoBehaviour
+    public class StageManager : MonoBehaviour
     {
-        public static FzgxStage currentStage = FzgxStage.MUTE_CITY_Twist_Road;
-        public static FzgxStage lastStage = FzgxStage.EX_Victory_Lap;
+        public static FZeroGXStage currentStage = FZeroGXStage.MUTE_CITY_Twist_Road;
+        public static FZeroGXStage lastStage = FZeroGXStage.EX_Victory_Lap;
         public static string resourcePath = "FZGX_EN/stage";
 
         // Used to modify how Vector3s are read from file to compensate for difference in winding
@@ -30,14 +30,14 @@ namespace FzgxData
         private static BinaryReader reader;
         public static BinaryReader Reader { get { return reader; } }
 
-        private static Stage current;
-        public static Stage Current
+        private static StageManager current;
+        public static StageManager Current
         {
             get
             {
                 // Get instance to Singleton if missing
                 if (current == null)
-                    current = FindObjectOfType<Stage>();
+                    current = FindObjectOfType<StageManager>();
 
                 return current;
             }
@@ -65,7 +65,7 @@ namespace FzgxData
             }
         }
 
-        public static void ChangeStage(FzgxStage stage)
+        public static void ChangeStage(FZeroGXStage stage)
         {
             currentStage = stage;
             current.Update();

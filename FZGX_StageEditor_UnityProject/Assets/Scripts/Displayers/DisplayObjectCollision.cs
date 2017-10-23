@@ -10,7 +10,7 @@ using GX_Data;
 using GX_Data.Object_0x48;
 using GX_Data.SplineData;
 
-namespace FzgxData
+namespace GameCube
 {
     public class DisplayObjectCollision : MonoBehaviour, IFZGXEditorStageEventReceiver
     {
@@ -22,7 +22,7 @@ namespace FzgxData
         }
         public void StageLoaded(BinaryReader reader)
         {
-            gxDataOther = new GX_Object_0x48(Stage.Reader);
+            gxDataOther = new GX_Object_0x48(StageManager.Reader);
             PrintCollision();
         }
 
@@ -58,7 +58,7 @@ namespace FzgxData
                     );
             }
 
-            PrintLog.SaveStream(string.Format("Collision_{0}_(1)", ((int)Stage.currentStage).ToString("000"), Stage.currentStage));
+            PrintLog.SaveStream(string.Format("Collision_{0}_(1)", ((int)StageManager.currentStage).ToString("000"), StageManager.currentStage));
         }
 
         public void TriQuadDisp(GX_Data.Object_0x48.BaseObject obj, TriQuad[] triQuad, Color color)

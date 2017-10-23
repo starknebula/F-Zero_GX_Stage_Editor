@@ -5,9 +5,9 @@
 using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
-using FzgxData;
-using FzgxData.COLI;
-using FzgxData.COLI.TrackData;
+using GameCube;
+using GameCube.COLI;
+using GameCube.COLI.TrackData;
 
 using UnityEditor;
 

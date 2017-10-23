@@ -2,7 +2,7 @@
 using System;
 using UnityEngine;
 
-namespace FzgxData.ImportExport
+namespace GameCube.Games.FZeroGX.ImportExport
 {
     public abstract class FZGX_ImporterExporter : MonoBehaviour
     {

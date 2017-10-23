@@ -1,4 +1,4 @@
-﻿namespace GameCube.Games.FzeroGX
+﻿namespace GameCube.Games.FZeroGX.Vehicle
 {
     public enum Body
     {

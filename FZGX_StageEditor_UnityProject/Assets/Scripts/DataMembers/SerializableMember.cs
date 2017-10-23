@@ -1,11 +1,11 @@
 ﻿using System.IO;
 
-namespace FzgxData
+namespace GameCube
 { 
     /// <summary>
-    /// 
+    /// Base class to inherit to facilitate loading and saving members from proprietary GC files.
     /// </summary>
-    public abstract class Member
+    public abstract class SerializableMember
     {
         public abstract uint size { get; }
 

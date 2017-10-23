@@ -5,8 +5,8 @@
 using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
-using FzgxData;
-using FzgxData.COLI;
+using GameCube;
+using GameCube.COLI;
 
 
 public class DisplayObjectPaths : MonoBehaviour, IFZGXEditorStageEventReceiver

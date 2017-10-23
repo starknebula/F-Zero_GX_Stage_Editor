@@ -8,14 +8,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FzgxData.COLI
+namespace GameCube.COLI
 {
     #region ROOT MEMBER
     /// <summary>
     /// COLI.RootMembers are data that own a Count and Offset constants in COLI files.
     /// </summary>
     [Serializable]
-    public abstract class RootMember : Member
+    public abstract class RootMember : SerializableMember
     {
         protected abstract uint count { get; }
         protected abstract uint address { get; }
@@ -72,7 +72,7 @@ namespace FzgxData.COLI
     #endregion
     #region SORT
     [Serializable]
-    public sealed class CollisionTable : Member
+    public sealed class CollisionTable : SerializableMember
     {
         #region CONSTRUCTORS
         public CollisionTable() { }
@@ -455,7 +455,7 @@ namespace FzgxData.COLI
             }
         }
         [Serializable]
-        public sealed class SplinePoint : Member
+        public sealed class SplinePoint : SerializableMember
         {
             #region CONSTRUCTORS
             public SplinePoint() { }
@@ -563,7 +563,7 @@ namespace FzgxData.COLI
             #endregion
         }
         [Serializable]
-        public sealed class SplineNode : Member
+        public sealed class SplineNode : SerializableMember
         {
             #region CONSTRUCTORS
             public SplineNode() { }
@@ -786,7 +786,7 @@ namespace FzgxData.COLI
             #endregion
         }
         [Serializable]
-        public sealed class SplineSegment : Member
+        public sealed class SplineSegment : SerializableMember
         {
             #region CONSTRUCTORS
             public SplineSegment() { }
@@ -1089,7 +1089,7 @@ namespace FzgxData.COLI
             #endregion
         }
         [Serializable]
-        public sealed class LibraryTable : Member
+        public sealed class LibraryTable : SerializableMember
         {
             #region CONSTRUCTORS
             public LibraryTable() { }
@@ -1166,7 +1166,7 @@ namespace FzgxData.COLI
             #endregion
         }
         [Serializable]
-        public sealed class LibraryEntry : Member
+        public sealed class LibraryEntry : SerializableMember
         {
             #region CONSTRUCTORS
             public LibraryEntry() { }
@@ -1504,7 +1504,7 @@ namespace FzgxData.COLI
         /// Formerly COLLISION MESH OFFSET
         /// </summary>
         [Serializable]
-        public sealed class SubData : Member
+        public sealed class SubData : SerializableMember
         {
             #region CONSTRUCTORS
             public SubData() { }
@@ -1565,7 +1565,7 @@ namespace FzgxData.COLI
         /// Formerly SUPLIMENTARY INFO OFFSET
         /// </summary>
         [Serializable]
-        public sealed class NameData : Member
+        public sealed class NameData : SerializableMember
         {
             #region CONSTRUCTORS
             public NameData() { }
@@ -1650,7 +1650,7 @@ namespace FzgxData.COLI
             #endregion
         }
         [Serializable]
-        public sealed class Animation : Member
+        public sealed class Animation : SerializableMember
         {
             #region CONSTRUCTORS
             public Animation() { }
@@ -1782,7 +1782,7 @@ namespace FzgxData.COLI
             #endregion
         }
         [Serializable]
-        public sealed class Transform : Member
+        public sealed class Transform : SerializableMember
         {
             #region CONSTRUCTOR 
             public Transform() { }
@@ -1847,7 +1847,7 @@ namespace FzgxData.COLI
                 //Vector3 position = new Vector3();
 
                 normalX = reader.GetVector3Normal();
-                position.x = reader.GetFloat() * ((Stage.doInverseWindingPositionX) ? -1f : 1f);
+                position.x = reader.GetFloat() * ((StageManager.doInverseWindingPositionX) ? -1f : 1f);
                 normalY = reader.GetVector3Normal();
                 position.y = reader.GetFloat();
                 normalZ = reader.GetVector3Normal();
@@ -1863,7 +1863,7 @@ namespace FzgxData.COLI
             #endregion
         }
         [Serializable]
-        public sealed class Collision : Member
+        public sealed class Collision : SerializableMember
         {
             #region CONSTRUCTORS
             public Collision() { }
@@ -2240,7 +2240,7 @@ namespace FzgxData.COLI
 
         #region NESTED TYPES
         [Serializable]
-        public sealed class IndexOffsetBlock : Member
+        public sealed class IndexOffsetBlock : SerializableMember
         {
             public IndexOffsetBlock() { }
             public IndexOffsetBlock(BinaryReader reader, uint address)
@@ -2415,7 +2415,7 @@ namespace FzgxData.COLI
                 paths[i] = new Path(reader, address + (size * i));
         }
 
-        public sealed class Path : Member
+        public sealed class Path : SerializableMember
         {
             public Path() { }
             public Path(BinaryReader reader, uint address)

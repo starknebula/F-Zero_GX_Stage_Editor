@@ -7,8 +7,7 @@ using System.Collections;
 public static class GUIStyles
 {
 
-    public static Font VeraMono = Resources.Load(CombinePathParams("Assets", "Resources", "Fonts", "VeraMono")) as Font;
-
+    public static Font font = Resources.Load(CombinePathParams("Assets", "Resources", "Fonts", "VeraMono")) as Font;
     public static Texture2D square = Resources.Load(CombinePathParams("Assets", "Resources", "Fonts", "Square")) as Texture2D;
 
     public static GUIStyle GX
@@ -29,7 +28,7 @@ public static class GUIStyles
             style.imagePosition = ImagePosition.ImageLeft;
 
             // Properties
-            style = style.EditedFontProperties(VeraMono, 12, FontStyle.Normal);
+            style = style.EditedFontProperties(font, 12, FontStyle.Normal);
             style = style.EditedTextProperties(TextAnchor.MiddleCenter, TextClipping.Clip, true, true);
             style = style.EditedDimensionProperties(0, 0, false, false);
             style = style.EditedRectOffsetProperties(

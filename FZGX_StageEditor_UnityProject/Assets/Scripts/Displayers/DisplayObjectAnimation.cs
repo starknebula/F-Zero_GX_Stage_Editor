@@ -9,7 +9,7 @@ using System.IO;
 using GX_Data;
 using GX_Data.Object_0x48;
 using GX_Data.SplineData;
-using FzgxData;
+using GameCube;
 
 
 public class DisplayObjectAnimation : MonoBehaviour, IFZGXEditorStageEventReceiver
@@ -79,7 +79,7 @@ public class DisplayObjectAnimation : MonoBehaviour, IFZGXEditorStageEventReceiv
     public static void PrintOutAnimationData()
     {
         // 6 = all addresses for animation
-        for (int h = 0; h < 6; h++)
+        for (int address = 0; address < 6; address++)
         {
             // Print out animations
             PrintLog.WriteTsvLineEndToBuffer(
@@ -102,7 +102,7 @@ public class DisplayObjectAnimation : MonoBehaviour, IFZGXEditorStageEventReceiv
 
                     for (int k = 0; k < gxDataOther.obj[i].animation.animationEntry[j].Length; k++)
                     {
-                        if (h == j)
+                        if (address == j)
                         {
                             if (gxDataOther.obj[i].animation.animationEntry[j].Length > 0)
                             {
@@ -120,7 +120,7 @@ public class DisplayObjectAnimation : MonoBehaviour, IFZGXEditorStageEventReceiv
                     }
                 }
             }
-            PrintLog.SaveStream(Stage.currentStage.ToString() + (h + 1).ToString());
+            PrintLog.SaveStream(StageManager.currentStage.ToString() + (address + 1).ToString());
         }
     }
     public static void PrintOutAnimationAddresses()
@@ -164,7 +164,7 @@ public class DisplayObjectAnimation : MonoBehaviour, IFZGXEditorStageEventReceiv
             }
             PrintLog.WriteToBuffer("\n");
         }
-        PrintLog.SaveStream(Stage.currentStage.ToString());
+        PrintLog.SaveStream(StageManager.currentStage.ToString());
     }
     public static void PrintOutAnimationInfo()
     {
@@ -184,7 +184,7 @@ public class DisplayObjectAnimation : MonoBehaviour, IFZGXEditorStageEventReceiv
                 gxDataOther.obj[i].ObjectName,
                 gxDataOther.obj[i].animation.dat_0x00.ToString(),
                 gxDataOther.obj[i].animation.dat_0x04.ToString(),
-                BitTool.GetLayer(gxDataOther.obj[i].animation.layer_16bit >> 16).ToString(),
+                BitToLayerUtility.GetLayer(gxDataOther.obj[i].animation.layer_16bit >> 16).ToString(),
                 (gxDataOther.obj[i].animation.pointers[0].count > 0 ? "x" : ""),
                 (gxDataOther.obj[i].animation.pointers[1].count > 0 ? "x" : ""),
                 (gxDataOther.obj[i].animation.pointers[2].count > 0 ? "x" : ""),
@@ -193,6 +193,6 @@ public class DisplayObjectAnimation : MonoBehaviour, IFZGXEditorStageEventReceiv
                 (gxDataOther.obj[i].animation.pointers[5].count > 0 ? "x" : "")
                 );
         }
-        PrintLog.SaveStream(Stage.currentStage.ToString());
+        PrintLog.SaveStream(StageManager.currentStage.ToString());
     }
 }
