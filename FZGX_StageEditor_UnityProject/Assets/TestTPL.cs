@@ -38,7 +38,7 @@ public class TestTPL : FZGX_ImporterExporter
         {
             Texture2D tex;
             for (int i = 0; i < tpl.NumDescriptors; i++)
-                tpl.ReadTexture(GetStreamFromFile(filename), i, out tex, (i).ToString("X"));
+                tpl.ReadTextureFromTPL(GetStreamFromFile(filename), i, out tex, (i).ToString("X"));
         }
     }
 }

@@ -31,10 +31,12 @@ namespace GameCube.Games.FZeroGX.FileStructures
             Deserialize(reader, 0);
         }
         #endregion
+
         #region MEMBERS
         private uint numDescriptors;
         private TEXDescriptor[] descriptorArray;
         #endregion
+
         #region PROPERTIES
         public uint NumDescriptors
         {
@@ -47,8 +49,21 @@ namespace GameCube.Games.FZeroGX.FileStructures
                 numDescriptors = value;
             }
         }
+        public TEXDescriptor[] DescriptorArray
+        {
+            get
+            {
+                return descriptorArray;
+            }
+            internal set
+            {
+                descriptorArray = value;
+            }
+        }
         #endregion
+
         #region METHODS
+        // IBinarySerializable
         public byte[] Serialize()
         {
             throw new System.NotImplementedException();
@@ -64,57 +79,75 @@ namespace GameCube.Games.FZeroGX.FileStructures
                 descriptorArray[i] = new TEXDescriptor(reader);
         }
 
-        public bool ReadTexture(BinaryReader reader, int index, out Texture2D tex, string name)
+        // 
+        public bool ReadTextureFromTPL(BinaryReader reader, int index, out Texture2D texture, string name)
         {
+            return ReadTextureFromTPL(reader, index, out texture, name, false);
+        }
+        public bool ReadTextureFromTPL(BinaryReader reader, int index, out Texture2D texture, string name, bool saveToDisk)
+        {
+            // If index is invalid
             if (index > numDescriptors)
-            {
-                tex = null;
-                return false;
-            }
+                throw new System.IndexOutOfRangeException(string.Format("Index must be less than or equal to {0}!", numDescriptors));
             else if (index < 0)
                 throw new System.IndexOutOfRangeException("Index must be greater than 0!");
 
-            //
+            // Load Texture Descriptor at index
             TEXDescriptor desc = descriptorArray[index];
-            if (desc.isNullEntry > 0)
+
+            // Verify if index is valid (some entries can be nulled out)
+            // We check for 0 specifically because garbage can be store in the
+            // first few entries of the file.
+            if (desc.isNullEntry != 0)
             {
-                tex = null;
+                texture = null;
                 return false;
             }
 
+            // We use Try as GxTextureFormatCodec.GetCodec() can return an error if the type is invalid
             try
             {
                 GxTextureFormatCodec codec = GxTextureFormatCodec.GetCodec((GxTextureFormat)desc.format);
-                Debug.Log(codec.GetType().Name);
                 reader.BaseStream.Position = desc.dataPtr;
                 byte[] texRaw = reader.GetBytes(codec.CalcTextureSize(desc.width, desc.height));
-                byte[] texRGBA = new byte[4 * desc.width * desc.height]; // RGBA (4) * w * h
-                Debug.LogFormat("{0}, {1}", desc.width, desc.height);
+                byte[] texRGBA = new byte[4 * desc.width * desc.height]; // RGBA (4 bytes) * w * h
                 codec.DecodeTexture(texRGBA, 0, desc.width, desc.height, desc.width * 4, texRaw, 0, null, 0);
 
-                tex = new Texture2D(desc.width, desc.height);
+                // Reconstruct Texture using Unity's format
+                texture = new Texture2D(desc.width, desc.height);
                 for (int y = 0; y < desc.height; y++)
+                {
                     for (int x = 0; x < desc.width; x++)
                     {
                         // Invert Y because LibGXTexture return array upside-down
                         // ei 'x, (desc.width - y)' instead of 'x, y'
-                        tex.SetPixel(x, (desc.width - y), new Color32(
+                        texture.SetPixel(x, (desc.width - y), new Color32(
                             texRGBA[(y * desc.width + x) * 4 + 0],
                             texRGBA[(y * desc.width + x) * 4 + 1],
                             texRGBA[(y * desc.width + x) * 4 + 2],
                             texRGBA[(y * desc.width + x) * 4 + 3]));
                     }
+                }
 
-                SaveBytes(string.Format("{0}.png", name), tex.EncodeToPNG());
+                if (saveToDisk)
+                {
+                    Debug.LogFormat("Saved {0} to path {1}", name, PersistantDataPath(""));
+                    SaveBytes(string.Format("{0}.png", name), texture.EncodeToPNG());
+                }
+
                 return true;
             }
             catch
             {
-                tex = null;
+                Debug.LogErrorFormat("GxTextureFormatCodec.GetCodec() failed to find format [{0}]", desc.format.ToString("X"));
+                texture = null;
                 return false;
             }
         }
-
+        public bool WriteTextureToTPL(BinaryWriter writer, int index, Texture2D texture)
+        {
+            throw new System.NotImplementedException();
+        }
         #endregion
 
         #region INTERNAL CLASSES
@@ -133,20 +166,21 @@ namespace GameCube.Games.FZeroGX.FileStructures
                 Deserialize(reader, reader.BaseStream.Position);
             }
             #endregion
+
             #region MEMBERS
             public ushort pad16;
             public byte isNullEntry;
             public byte format;
 
-            public uint dataPtr; // pointer
+            public uint dataPtr; // Reader Address
 
-            // TODO: double check order here (h/w?)
             public ushort width;
             public ushort height;
 
             public ushort powerOf;
             public ushort endianness; // 1234 instead of 3412
             #endregion
+
             #region METHODS
             public byte[] Serialize()
             {
@@ -173,17 +207,10 @@ namespace GameCube.Games.FZeroGX.FileStructures
         }
         #endregion
 
+        // TEMP
         public static string PersistantDataPath(string filename)
         {
-            // Because Unity
-            string value = string.Format("{0}/{1}", Application.persistentDataPath, filename);
-
-            //#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
-            //                value = value.Replace('/', '\\');
-            //#endif
-
             return string.Format("{0}/{1}", Application.persistentDataPath, filename);
-            //return Path.Combine(Application.persistentDataPath, filename);
         }
         public static bool SaveBytes(string filename, byte[] bytes)
         {
