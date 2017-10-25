@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LibGxTexture
+namespace GameCube.LibGxTexture
 {
     class GxTextureFormatCodecCI14X2 : GxTextureFormatCodec
     {

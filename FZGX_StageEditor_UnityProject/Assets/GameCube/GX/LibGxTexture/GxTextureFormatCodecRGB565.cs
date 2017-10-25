@@ -1,4 +1,4 @@
-﻿namespace LibGxTexture
+﻿namespace GameCube.LibGxTexture
 {
     class GxTextureFormatCodecRGB565 : GxTextureFormatCodec
     {

@@ -10,7 +10,7 @@ using UnityEngine;
 using GameCube.GX.Enumerated_Types;
 using GameCube.GX.Texture;
 using GameCube;
-using LibGxTexture;
+using GameCube.LibGxTexture;
 
 namespace GameCube.Games.FZeroGX.FileStructures
 {

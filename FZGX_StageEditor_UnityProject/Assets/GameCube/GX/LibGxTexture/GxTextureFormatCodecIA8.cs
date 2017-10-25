@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LibGxTexture
+namespace GameCube.LibGxTexture
 {
     /// <summary>IA4 (4 bits intensity / 4 bits alpha) pixel format.</summary>
     class GxTextureFormatCodecIA8 : GxTextureFormatCodec

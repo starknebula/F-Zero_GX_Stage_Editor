@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace LibGxTexture
+namespace GameCube.LibGxTexture
 {
     /// <summary>
     /// Gx texture formats (along with TPL identifiers).

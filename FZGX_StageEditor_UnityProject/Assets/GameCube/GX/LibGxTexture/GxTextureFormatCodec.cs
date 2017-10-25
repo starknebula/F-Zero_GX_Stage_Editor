@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LibGxTexture
+namespace GameCube.LibGxTexture
 {
     /**
      * Some quick notes on texture decoding (and encoding).

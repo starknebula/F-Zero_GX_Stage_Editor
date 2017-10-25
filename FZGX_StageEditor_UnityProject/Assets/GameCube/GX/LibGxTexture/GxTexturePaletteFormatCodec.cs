@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LibGxTexture
+namespace GameCube.LibGxTexture
 {
     /// <summary>
     /// Base class to be implemented by all texture palette formats supported by GxTexture.

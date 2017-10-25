@@ -17,17 +17,16 @@ namespace System.IO
         /// </remarks>
         public static bool isLittleEndian = true;
 
-        // To be implemented
-        /*/
+
         /// <summary>
-        /// When <c>true</c>, forces BinaryReaderExtensions.encoding upon the BinaryReader.
+        /// Mimics the functionality of StreamReader.EndOfStream
         /// </summary>
-        public static bool forceEncoding = false;
-        /// <summary>
-        /// The encoding that is forced upon the Binary reader when BinaryReaderExtensions.forceEncoding is <c>true</c>.
-        /// </summary>
-        public static Text.Encoding encoding = Text.Encoding.UTF8;
-        //*/
+        /// <param name="reader"></param>
+        /// <returns>True when at then of the of the stream</returns>
+        public static bool EndOfStream(this BinaryReader reader)
+        {
+            return !(reader.BaseStream.Position < reader.BaseStream.Length);
+        }
 
         /// <summary>
         /// Reads the <paramref name="bitCount"/> amount of bits at the specified <paramref name="index"/>.

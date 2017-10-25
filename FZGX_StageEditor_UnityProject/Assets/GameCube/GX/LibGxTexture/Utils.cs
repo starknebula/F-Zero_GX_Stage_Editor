@@ -1,4 +1,4 @@
-﻿namespace LibGxTexture
+﻿namespace GameCube.LibGxTexture
 {
     /// <summary>
     /// Miscelaneous utilities used by GxTexture.

@@ -33,7 +33,7 @@ using System;
 //     you also see "(a*5 + b*3) / 8" on some old GPU designs.
 // #define STB_DXT_USE_ROUNDING_BIAS
 
-namespace LibGxTexture
+namespace GameCube.LibGxTexture
 {
     /// <summary>DXT compression class.</summary>
     public static class StbDxt

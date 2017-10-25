@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace LibGxTexture
+namespace GameCube.LibGxTexture
 {
     /// <summary>
     /// A lightweight structure for representing a color as its 8-bit color components.
