@@ -23,7 +23,7 @@ namespace GameCube
         public void StageLoaded(BinaryReader reader)
         {
             gxDataOther = new GX_Object_0x48(StageManager.Reader);
-            PrintCollision();
+            //PrintCollision();
         }
 
 
@@ -41,25 +41,25 @@ namespace GameCube
             }
         }
 
-        public static void PrintCollision()
-        {
-            foreach (GX_Data.Object_0x48.BaseObject obj in gxDataOther.obj)
-            {
-                PrintLog.WriteTsvLineEndToBuffer(
-                    obj.sectionA.collision.id.ToString(),
-                    obj.sectionA.collision.dat_Tri_0x04.ToString(),
-                    obj.sectionA.collision.dat_Quad_0x08.ToString(),
-                    obj.sectionA.collision.dat_Tri_0x0C.ToString(),
-                    obj.sectionA.collision.dat_Quad_0x10.ToString(),
-                    obj.sectionA.collision.triCount.ToString(),
-                    obj.sectionA.collision.quadCount.ToString(),
-                    obj.sectionA.collision.triAddress.ToString(),
-                    obj.sectionA.collision.quadAddress.ToString()
-                    );
-            }
+        //public static void PrintCollision()
+        //{
+        //    foreach (GX_Data.Object_0x48.BaseObject obj in gxDataOther.obj)
+        //    {
+        //        PrintLog.WriteTsvLineEndToBuffer(
+        //            obj.sectionA.collision.id.ToString(),
+        //            obj.sectionA.collision.dat_Tri_0x04.ToString(),
+        //            obj.sectionA.collision.dat_Quad_0x08.ToString(),
+        //            obj.sectionA.collision.dat_Tri_0x0C.ToString(),
+        //            obj.sectionA.collision.dat_Quad_0x10.ToString(),
+        //            obj.sectionA.collision.triCount.ToString(),
+        //            obj.sectionA.collision.quadCount.ToString(),
+        //            obj.sectionA.collision.triAddress.ToString(),
+        //            obj.sectionA.collision.quadAddress.ToString()
+        //            );
+        //    }
 
-            PrintLog.SaveStream(string.Format("Collision_{0}_(1)", ((int)StageManager.currentStage).ToString("000"), StageManager.currentStage));
-        }
+        //    PrintLog.SaveStream(string.Format("Collision_{0}_(1)", ((int)StageManager.currentStage).ToString("000"), StageManager.currentStage));
+        //}
 
         public void TriQuadDisp(GX_Data.Object_0x48.BaseObject obj, TriQuad[] triQuad, Color color)
         {
