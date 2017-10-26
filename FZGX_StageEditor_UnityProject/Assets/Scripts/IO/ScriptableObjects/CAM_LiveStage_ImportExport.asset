@@ -11,6 +11,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ba9192d511e1784dbabbe744226492c, type: 3}
   m_Name: CAM_LiveStage_ImportExport
   m_EditorClassIdentifier: 
-  resourcePath: Resources/FZGX_EN/cam
-  extension: bin
-  exportPath: Assets/ImportedScriptableObjects/CAM
+  fileMode: 2
+  fileAccess: 2
+  consolePrintSavePath: 1
+  targetExtension: bin
+  sourcePath: Resources/FZGX_EN/cam
+  importPath: Assets/GameCube/Games/F-Zero GX/CameraData
+  exportPath: Assets/GameCube/Games/F-Zero GX/ImportedScriptableObjects/CAM
+  exportData:
+  - {fileID: 11400000, guid: a3fb11500a69c7143aae690e0dd4cb9c, type: 2}

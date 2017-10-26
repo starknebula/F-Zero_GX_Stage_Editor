@@ -10,7 +10,7 @@ using GX_Data;
 using GX_Data.Object_0x48;
 using GX_Data.SplineData;
 
-namespace GameCube
+namespace GameCube.Games.FZeroGX
 {
     public class DisplayObjectCollision : MonoBehaviour, IFZGXEditorStageEventReceiver
     {

@@ -11,5 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b82217b22d7ebe44baeab95c21a4f12, type: 3}
   m_Name: TPL ImportExport
   m_EditorClassIdentifier: 
-  resourcePath: 
+  fileMode: 2
+  fileAccess: 2
+  debugSavePath: 1
+  sourceExtension: tpl
+  sourcePath: 
+  importPath: 
+  exportPath: 
   stageIndex: 1

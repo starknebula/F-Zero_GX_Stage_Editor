@@ -5,7 +5,7 @@ using UnityEngine;
 using System.IO;
 using GameCube.Games.FZeroGX;
 
-namespace GameCube
+namespace GameCube.Games.FZeroGX
 {
     /// <summary>
     /// Singleton script for controlling stage loading and stream management

@@ -16,11 +16,16 @@ public class TPL_IO : ImportExportObject
     [SerializeField]
     private TPL tpl;
 
-    public override string filename
+    public override string HelpBoxImport => "---";
+    public override string HelpBoxExport => "---";
+    public override string ExportMessage => "Texture Palette Library (TPL) export successful";
+    public override string ImportMessage => "Texture Palette Library (TPL) import successful";
+
+    public string filename
     {
         get
         {
-            return string.Format("{0}/st{1},lz", resourcePath, ((int)stageIndex).ToString("D2"));
+            return string.Format("{0}/st{1},lz", sourcePath, ((int)stageIndex).ToString("D2"));
         }
     }
 

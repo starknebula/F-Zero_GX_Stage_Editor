@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 
-using GameCube;
+using GameCube.Games.FZeroGX;
 
 namespace GX_Data.Object_0x48
 {

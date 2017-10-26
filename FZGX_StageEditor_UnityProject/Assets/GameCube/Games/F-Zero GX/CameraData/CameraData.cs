@@ -28,7 +28,8 @@ namespace GameCube.Games.FZeroGX.FileStructures
         }
         public void Serialize(BinaryWriter writer)
         {
-            throw new NotImplementedException();
+            foreach (CameraPan cPan in cameraPans)
+                cPan.Serialize(writer);
         }
     }
 
@@ -51,7 +52,9 @@ namespace GameCube.Games.FZeroGX.FileStructures
         }
         public void Serialize(BinaryWriter writer)
         {
-            throw new NotImplementedException();
+            @params.Serialize(writer);
+            interpolateFrom.Serialize(writer);
+            interpolateTo.Serialize(writer);
         }
     }
 
@@ -73,7 +76,9 @@ namespace GameCube.Games.FZeroGX.FileStructures
         }
         public void Serialize(BinaryWriter writer)
         {
-            throw new NotImplementedException();
+            writer.Write(frameDuration);
+            writer.Write(lerpSpeed);
+            writer.Write(unk_0x08);
         }
     }
 
@@ -96,7 +101,11 @@ namespace GameCube.Games.FZeroGX.FileStructures
         }
         public void Serialize(BinaryWriter writer)
         {
-            throw new NotImplementedException();
+            writer.WritePosition(position);
+            writer.WriteRotation(position);
+            writer.Write(fov);
+            writer.Write(paramFlagsA);
+            writer.Write(paramFlagsB);
         }
     }
 }

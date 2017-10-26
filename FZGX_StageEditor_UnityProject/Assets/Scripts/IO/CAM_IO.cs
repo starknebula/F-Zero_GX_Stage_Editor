@@ -8,30 +8,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameCube.Games.FZeroGX.FileStructures;
 using UnityEditor;
+using System;
 
 namespace GameCube.Games.FZeroGX.IO
 {
     [CreateAssetMenu(fileName = "CAM ImportExport", menuName = "FZGX IO/CAM ImportExport")]
     public class CAM_IO : ImportExportObject
     {
-        //[SerializeField]
-        //private FZeroGXStage stageIndex;
-        //[SerializeField]
-        //private string fileFormat = "livecam_demo{0}.{1}";
         [SerializeField]
-        private string extension = "bin";
-        [SerializeField]
-        [BrowseFolderField("FZGX_StageEditor_UnityProject/")]
-        private string exportPath;
+        private CAM[] exportData;
 
-        public override string filename
-        {
-            get
-            {
-                return "";// string.Format(fileFormat, ((int)stageIndex).ToString("D2"), resourcePath);
-            }
-        }
+        public override string HelpBoxImport => "Imports all assets from \"cam/\" into Unity editable ScriptableObjects at 'Import Path'";
+        public override string HelpBoxExport => "Exports all assets in 'Export Data' into packed .bin format used by F-Zero GX.";
+        public override string ExportMessage => "Camera Data export successful";
+        public override string ImportMessage => "Camera Data import successful";
 
+        #region CONSTANTS
         private const string livecam = "livecam_{0}.{1}";
         private const string livecam_ball = "livecam_ball_{0}.{1}";
         private const string livecam_stage = "livecam_stage_{0}.{1}";
@@ -54,19 +46,23 @@ namespace GameCube.Games.FZeroGX.IO
             livecam_stage_50_3p,
             livecam_stage_50_4p,
         };
+        #endregion
 
         public override void Import()
         {
-            ImportAllLiveCams();
+            ImportCameraDataAll();
         }
         public override void Export()
         {
-            throw new System.NotImplementedException();
+            foreach (CAM export in exportData)
+            {
+                BinaryWriter writer = new BinaryWriter(new MemoryStream());
+                export.CameraData.Serialize(writer);
+                Save(writer, export.name);
+            }
         }
 
-
-
-        private void ImportSingleCam(string rawFileName, string exportAssetPath)
+        private void ImportCameraData(string rawFileName, string exportAssetPath)
         {
             try
             {
@@ -83,25 +79,25 @@ namespace GameCube.Games.FZeroGX.IO
                 Debug.LogWarning(e.Message);
             }
         }
-        private void ImportAllLiveCams()
+        private void ImportCameraDataAll()
         {
             foreach (string liveCamStageFormat in LiveCamStages)
             {
                 for (int i = 0; i < 50; i++)
                 {
-                    string rawFileName = string.Format(liveCamStageFormat, i, extension);
-                    string exportAssetPath = string.Format(exportPath + "/" + liveCamStageFormat, i, "asset");
+                    string rawFileName = string.Format(liveCamStageFormat, i, sourceExtension);
+                    string exportAssetPath = string.Format(importPath + "/" + liveCamStageFormat, i, "asset");
 
-                    ImportSingleCam(rawFileName, exportAssetPath);
+                    ImportCameraData(rawFileName, exportAssetPath);
                 }
             }
 
             foreach (string liveCam50Stage in LiveCam50Stages)
             {
-                string rawFileName = string.Format(liveCam50Stage, extension);
-                string exportAssetPath = string.Format(exportPath + "/" + liveCam50Stage, "asset");
+                string rawFileName = string.Format(liveCam50Stage, sourceExtension);
+                string exportAssetPath = string.Format(importPath + "/" + liveCam50Stage, "asset");
 
-                ImportSingleCam(rawFileName, exportAssetPath);
+                ImportCameraData(rawFileName, exportAssetPath);
             }
         }
 

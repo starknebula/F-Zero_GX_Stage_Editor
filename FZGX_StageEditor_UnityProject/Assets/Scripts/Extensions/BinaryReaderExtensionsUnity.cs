@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-using GameCube;
+using GameCube.Games.FZeroGX;
 
 
 namespace System.IO

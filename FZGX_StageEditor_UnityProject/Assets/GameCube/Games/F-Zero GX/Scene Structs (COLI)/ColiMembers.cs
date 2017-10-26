@@ -7,6 +7,7 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameCube.Games.FZeroGX;
 
 namespace GameCube.COLI
 {
