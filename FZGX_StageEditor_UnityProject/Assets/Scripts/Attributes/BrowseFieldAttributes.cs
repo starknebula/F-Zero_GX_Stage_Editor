@@ -183,7 +183,7 @@ namespace UnityEditor
             contentPosition.width = textContentWidth;
 
             // Only Regex if string contains desired directory
-            // This can fail if the regex folder is contained twice in the directoy
+            // This can fail if the regex folder is contained twice in the directory
             if (value.Contains(attributeTarget.RelativeDirectory))
                 // Get remainder of string after BrowsePathAttribute.RelativeDirectory
                 // By default it's value is "Assets/"

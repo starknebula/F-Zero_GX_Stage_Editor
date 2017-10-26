@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6bb950a11ad3c14881c1b873ae0b30f, type: 3}
+  m_Name: livecam_stage_demo_21
+  m_EditorClassIdentifier: 
+  cameraData:
+    cameraPans:
+    - params:
+        frameDuration: 350
+        lerpSpeed: 0.007
+        unk_0x08: 0
+      interpolateFrom:
+        position: {x: -3119.023, y: -695.408, z: -1562.755}
+        rotation: {x: -3340.422, y: -787.988, z: -1361.045}
+        fov: 61
+        paramFlagsA: 4026531840
+        paramFlagsB: 0
+      interpolateTo:
+        position: {x: -3109.867, y: -721.067, z: -1604.802}
+        rotation: {x: -3339.138, y: -791.328, z: -1361.473}
+        fov: 61
+        paramFlagsA: 3892314112
+        paramFlagsB: 131072
+    - params:
+        frameDuration: 500
+        lerpSpeed: 0.007
+        unk_0x08: 0
+      interpolateFrom:
+        position: {x: -1326.298, y: 314.587, z: 107.822}
+        rotation: {x: -934.218, y: 187.079, z: 73.432}
+        fov: 61
+        paramFlagsA: 274923520
+        paramFlagsB: 0
+      interpolateTo:
+        position: {x: -1268.15, y: 249.107, z: 121.659}
+        rotation: {x: -934.218, y: 187.079, z: 73.432}
+        fov: 61
+        paramFlagsA: 274923520
+        paramFlagsB: 131072
+    - params:
+        frameDuration: 350
+        lerpSpeed: 0.007
+        unk_0x08: 0
+      interpolateFrom:
+        position: {x: -25.197, y: 29.448, z: 61.876}
+        rotation: {x: 83.094, y: -30.972, z: -258.054}
+        fov: 55
+        paramFlagsA: 0
+        paramFlagsB: 0
+      interpolateTo:
+        position: {x: 21.051, y: 7.154, z: 51.45}
+        rotation: {x: -66.235, y: 109.252, z: -263.039}
+        fov: 61
+        paramFlagsA: 4026531840
+        paramFlagsB: 131072

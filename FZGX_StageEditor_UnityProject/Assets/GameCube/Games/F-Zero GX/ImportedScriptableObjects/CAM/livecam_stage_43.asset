@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6bb950a11ad3c14881c1b873ae0b30f, type: 3}
+  m_Name: livecam_stage_43
+  m_EditorClassIdentifier: 
+  cameraData:
+    cameraPans:
+    - params:
+        frameDuration: 350
+        lerpSpeed: 0.005
+        unk_0x08: 0
+      interpolateFrom:
+        position: {x: 17.482, y: 124.325, z: -282.556}
+        rotation: {x: -105.54, y: 106.731, z: -335.369}
+        fov: 55
+        paramFlagsA: 0
+        paramFlagsB: 0
+      interpolateTo:
+        position: {x: -13.572, y: 11.17, z: -75.399}
+        rotation: {x: -7.97, y: 58.178, z: -373.514}
+        fov: 61
+        paramFlagsA: 4160749568
+        paramFlagsB: 131072

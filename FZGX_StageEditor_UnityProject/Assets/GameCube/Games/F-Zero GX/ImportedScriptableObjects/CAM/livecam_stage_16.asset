@@ -1,0 +1,159 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6bb950a11ad3c14881c1b873ae0b30f, type: 3}
+  m_Name: livecam_stage_16
+  m_EditorClassIdentifier: 
+  cameraData:
+    cameraPans:
+    - params:
+        frameDuration: 142
+        lerpSpeed: 0.008
+        unk_0x08: 0
+      interpolateFrom:
+        position: {x: 537.33, y: 820.771, z: -660.378}
+        rotation: {x: 808.919, y: 872.074, z: -1376.766}
+        fov: 59.2
+        paramFlagsA: 151977984
+        paramFlagsB: 0
+      interpolateTo:
+        position: {x: 639.177, y: 597.083, z: -650.743}
+        rotation: {x: 839.301, y: 825.097, z: -1370.714}
+        fov: 66
+        paramFlagsA: 402653184
+        paramFlagsB: 131072
+    - params:
+        frameDuration: 17
+        lerpSpeed: 0.006
+        unk_0x08: 0
+      interpolateFrom:
+        position: {x: -590.945, y: 469.445, z: 2023.518}
+        rotation: {x: 538.018, y: 212.898, z: 506.466}
+        fov: 67
+        paramFlagsA: 134217728
+        paramFlagsB: 0
+      interpolateTo:
+        position: {x: -590.945, y: 469.445, z: 2023.518}
+        rotation: {x: 538.018, y: 212.898, z: 506.466}
+        fov: 67
+        paramFlagsA: 134217728
+        paramFlagsB: 0
+    - params:
+        frameDuration: 33
+        lerpSpeed: 0.006
+        unk_0x08: 0
+      interpolateFrom:
+        position: {x: 978.831, y: 362.451, z: 175.708}
+        rotation: {x: 1094.587, y: 431.292, z: -167.014}
+        fov: 75
+        paramFlagsA: 0
+        paramFlagsB: 0
+      interpolateTo:
+        position: {x: 978.443, y: 369.216, z: 176.858}
+        rotation: {x: 1115.889, y: 466.482, z: -150.469}
+        fov: 75
+        paramFlagsA: 0
+        paramFlagsB: 131072
+    - params:
+        frameDuration: 17
+        lerpSpeed: 0.01
+        unk_0x08: 0
+      interpolateFrom:
+        position: {x: 574.307, y: 51.767, z: 1421.654}
+        rotation: {x: 1001.411, y: 193.075, z: 1161.762}
+        fov: 62
+        paramFlagsA: 0
+        paramFlagsB: 0
+      interpolateTo:
+        position: {x: 575.48, y: 46.395, z: 1420.94}
+        rotation: {x: 1012.727, y: 172.469, z: 1168.868}
+        fov: 62
+        paramFlagsA: 0
+        paramFlagsB: 131072
+    - params:
+        frameDuration: 72
+        lerpSpeed: 0.01
+        unk_0x08: 0
+      interpolateFrom:
+        position: {x: -69.299, y: 452.385, z: 561.534}
+        rotation: {x: 274.434, y: -240.708, z: 1522.852}
+        fov: 55
+        paramFlagsA: 0
+        paramFlagsB: 0
+      interpolateTo:
+        position: {x: -184.56, y: 286.689, z: 506.23}
+        rotation: {x: 301.378, y: -79.933, z: 1582.538}
+        fov: 55
+        paramFlagsA: 0
+        paramFlagsB: 131072
+    - params:
+        frameDuration: 136
+        lerpSpeed: 0.01
+        unk_0x08: 0
+      interpolateFrom:
+        position: {x: 239.353, y: 350.999, z: 984.287}
+        rotation: {x: -1013.514, y: -541.323, z: -81.875}
+        fov: 65
+        paramFlagsA: 4160749568
+        paramFlagsB: 0
+      interpolateTo:
+        position: {x: -29.986, y: 18.144, z: 836.653}
+        rotation: {x: 78.777, y: 200.425, z: 254.439}
+        fov: 65
+        paramFlagsA: 4160749568
+        paramFlagsB: 196608
+    - params:
+        frameDuration: 136
+        lerpSpeed: 0.01
+        unk_0x08: 0
+      interpolateFrom:
+        position: {x: 385.294, y: 540.546, z: 1792.894}
+        rotation: {x: 321.67, y: 201.104, z: 1249.859}
+        fov: 62
+        paramFlagsA: 0
+        paramFlagsB: 0
+      interpolateTo:
+        position: {x: -0.118, y: 389.551, z: 1757.458}
+        rotation: {x: 289.027, y: 314.157, z: 1184.935}
+        fov: 62
+        paramFlagsA: 0
+        paramFlagsB: 131072
+    - params:
+        frameDuration: 136
+        lerpSpeed: 0.01
+        unk_0x08: 0
+      interpolateFrom:
+        position: {x: -94.696, y: 450.68, z: -692.062}
+        rotation: {x: -198.166, y: 291.399, z: -2628.144}
+        fov: 55
+        paramFlagsA: 0
+        paramFlagsB: 0
+      interpolateTo:
+        position: {x: 3.716, y: 97.56, z: -609.747}
+        rotation: {x: -945.771, y: 798.76, z: -2136.097}
+        fov: 59
+        paramFlagsA: 0
+        paramFlagsB: 131072
+    - params:
+        frameDuration: 150
+        lerpSpeed: 0.013
+        unk_0x08: 0
+      interpolateFrom:
+        position: {x: 86.688, y: 80.184, z: 811.135}
+        rotation: {x: -539.739, y: -458.786, z: -2039.664}
+        fov: 55
+        paramFlagsA: 4028432384
+        paramFlagsB: 0
+      interpolateTo:
+        position: {x: -7.496, y: 12.269, z: 743.855}
+        rotation: {x: 1300.774, y: 894.934, z: -1749.421}
+        fov: 55
+        paramFlagsA: 4028432384
+        paramFlagsB: 131072

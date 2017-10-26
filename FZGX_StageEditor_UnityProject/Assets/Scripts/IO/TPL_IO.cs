@@ -20,13 +20,13 @@ public class TPL_IO : ImportExportObject
     {
         get
         {
-            return string.Format("{1}/st{0},lz", ((int)stageIndex).ToString("D2"), resourcePath);
+            return string.Format("{0}/st{1},lz", resourcePath, ((int)stageIndex).ToString("D2"));
         }
     }
 
     public override void Import()
     {
-        tpl = new TPL(GetStreamFromFile(filename));
+        tpl = new TPL(OpenBinaryReaderWithFile(filename));
         Export();
     }
     public override void Export()
@@ -35,7 +35,7 @@ public class TPL_IO : ImportExportObject
         {
             Texture2D tex;
             for (int i = 0; i < tpl.NumDescriptors; i++)
-                tpl.ReadTextureFromTPL(GetStreamFromFile(filename), i, out tex, (i).ToString("X"));
+                tpl.ReadTextureFromTPL(OpenBinaryReaderWithFile(filename), i, out tex, (i).ToString("X"));
         }
     }
 }

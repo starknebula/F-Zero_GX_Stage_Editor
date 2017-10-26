@@ -9,4 +9,10 @@ namespace System.IO
         byte[] Serialize();
         void Deserialize(BinaryReader reader, long address);
     }
+
+    public interface IBinarySerializable2
+    {
+        void Serialize(BinaryWriter writer);
+        void Deserialize(BinaryReader reader);
+    }
 }

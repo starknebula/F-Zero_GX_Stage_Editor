@@ -8,8 +8,10 @@ using UnityEngine;
 public abstract class ImportExportObject : ScriptableObject
 {
     [SerializeField]
-    [BrowseFolderField("Resources/")]
+    [BrowseFolderField]
     protected string resourcePath;
+
+    private string ProjectAssetsFolder => Application.dataPath;
 
     public abstract void Import();
     public abstract void Export();
@@ -19,17 +21,21 @@ public abstract class ImportExportObject : ScriptableObject
         get;
     }
 
-    public BinaryReader GetStreamFromFile(string filename)
+    public BinaryReader OpenBinaryReaderWithFile(string filename)
     {
-        return GetStreamFromFile(filename, System.Text.Encoding.ASCII);
+        return OpenBinaryReaderWithFile(filename, System.Text.Encoding.ASCII);
     }
-    public BinaryReader GetStreamFromFile(string filename, System.Text.Encoding encoding)
+    public BinaryReader OpenBinaryReaderWithFile(string filePath, System.Text.Encoding encoding)
     {
-        TextAsset file = Resources.Load<TextAsset>(filename);
-        Stream stream = new MemoryStream(file.bytes);
-        BinaryReader binaryReader = new BinaryReader(stream, encoding);
-
-        return binaryReader;
+        //TextAsset file = Resources.Load<TextAsset>(filename);
+        string path = Path.Combine(ProjectAssetsFolder, resourcePath, filePath);
+        using (FileStream fileStream = new FileStream(path, FileMode.Open))
+        {
+            BinaryReader binaryReader = new BinaryReader(new MemoryStream(0), encoding);
+            fileStream.CopyTo(binaryReader.BaseStream);
+            binaryReader.BaseStream.Seek(0, SeekOrigin.Begin);
+            return binaryReader;
+        }
     }
 }
 

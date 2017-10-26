@@ -8,8 +8,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b82217b22d7ebe44baeab95c21a4f12, type: 3}
-  m_Name: TPL ImportExport
+  m_Script: {fileID: 11500000, guid: 5ba9192d511e1784dbabbe744226492c, type: 3}
+  m_Name: CAM_LiveStage_ImportExport
   m_EditorClassIdentifier: 
-  resourcePath: 
-  stageIndex: 1
+  resourcePath: Resources/FZGX_EN/cam
+  extension: bin
+  exportPath: Assets/ImportedScriptableObjects/CAM

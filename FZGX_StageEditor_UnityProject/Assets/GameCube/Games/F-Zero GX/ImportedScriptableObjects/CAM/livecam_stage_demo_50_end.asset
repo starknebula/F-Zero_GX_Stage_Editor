@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6bb950a11ad3c14881c1b873ae0b30f, type: 3}
+  m_Name: livecam_stage_demo_50_end
+  m_EditorClassIdentifier: 
+  cameraData:
+    cameraPans:
+    - params:
+        frameDuration: 343
+        lerpSpeed: 0.01
+        unk_0x08: 0
+      interpolateFrom:
+        position: {x: 352.644, y: 506.767, z: 649.035}
+        rotation: {x: 347.679, y: 503.983, z: 659.058}
+        fov: 45
+        paramFlagsA: 134217728
+        paramFlagsB: 0
+      interpolateTo:
+        position: {x: 344.596, y: 506.8, z: 652.18}
+        rotation: {x: 347.005, y: 504.267, z: 659.515}
+        fov: 55
+        paramFlagsA: 0
+        paramFlagsB: 196608
+    - params:
+        frameDuration: 349
+        lerpSpeed: 0.01
+        unk_0x08: 0
+      interpolateFrom:
+        position: {x: 347.022, y: 505.543, z: 658.007}
+        rotation: {x: 347.022, y: 504.852, z: 659.65}
+        fov: 40
+        paramFlagsA: 0
+        paramFlagsB: 0
+      interpolateTo:
+        position: {x: 346.933, y: 503.989, z: 657.323}
+        rotation: {x: 346.915, y: 504.726, z: 659.562}
+        fov: 55
+        paramFlagsA: 4026531840
+        paramFlagsB: 196608
+    - params:
+        frameDuration: 355
+        lerpSpeed: 0.008
+        unk_0x08: 0
+      interpolateFrom:
+        position: {x: 349.297, y: 505.976, z: 656.639}
+        rotation: {x: 347.413, y: 503.822, z: 660.348}
+        fov: 52.3
+        paramFlagsA: 4265279488
+        paramFlagsB: 0
+      interpolateTo:
+        position: {x: 345.885, y: 504.054, z: 656.457}
+        rotation: {x: 346.817, y: 504.24, z: 660.215}
+        fov: 52
+        paramFlagsA: 4279238656
+        paramFlagsB: 196608
+    - params:
+        frameDuration: 500
+        lerpSpeed: 0.008
+        unk_0x08: 0
+      interpolateFrom:
+        position: {x: 345.885, y: 504.054, z: 656.457}
+        rotation: {x: 346.817, y: 504.24, z: 660.215}
+        fov: 52
+        paramFlagsA: 4279238656
+        paramFlagsB: 0
+      interpolateTo:
+        position: {x: 345.869, y: 504.895, z: 656.313}
+        rotation: {x: 346.419, y: 508.693, z: 656.996}
+        fov: 52
+        paramFlagsA: 4279238656
+        paramFlagsB: 196608
