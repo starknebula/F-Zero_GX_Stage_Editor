@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc75423fdc0ab7b4694d58f9684623f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 11400000, guid: 9284bd7ed7fee1149b627c3f8c50e9f8, type: 2}
+  cam: {fileID: 11400000, guid: 0e652f362e3d8d546a9da81396131cdc, type: 2}
   radiusStartEnd: 10
   radiusLerpPoint: 2.65
   lineLength: 20

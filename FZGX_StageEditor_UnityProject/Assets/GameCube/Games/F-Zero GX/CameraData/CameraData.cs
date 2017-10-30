@@ -61,12 +61,9 @@ namespace GameCube.Games.FZeroGX.FileStructures
     [Serializable]
     public class CameraParams : IBinarySerializable2
     {
-        [SerializeField]
-        internal uint frameDuration;
-        [SerializeField]
-        internal float lerpSpeed;
-        [SerializeField]
-        internal uint unk_0x08;
+        public uint frameDuration;
+        public float lerpSpeed;
+        public uint unk_0x08;
 
         public void Deserialize(BinaryReader reader)
         {
