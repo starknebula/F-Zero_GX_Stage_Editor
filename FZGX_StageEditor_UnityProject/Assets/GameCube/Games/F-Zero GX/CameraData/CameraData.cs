@@ -62,11 +62,11 @@ namespace GameCube.Games.FZeroGX.FileStructures
     public class CameraParams : IBinarySerializable2
     {
         [SerializeField]
-        private uint frameDuration;
+        internal uint frameDuration;
         [SerializeField]
-        private float lerpSpeed;
+        internal float lerpSpeed;
         [SerializeField]
-        private uint unk_0x08;
+        internal uint unk_0x08;
 
         public void Deserialize(BinaryReader reader)
         {
@@ -76,9 +76,9 @@ namespace GameCube.Games.FZeroGX.FileStructures
         }
         public void Serialize(BinaryWriter writer)
         {
-            writer.Write(frameDuration);
-            writer.Write(lerpSpeed);
-            writer.Write(unk_0x08);
+            writer.WriteX(frameDuration);
+            writer.WriteX(lerpSpeed);
+            writer.WriteX(unk_0x08);
         }
     }
 
@@ -88,25 +88,75 @@ namespace GameCube.Games.FZeroGX.FileStructures
         public Vector3 position;
         public Vector3 rotation;
         public float fov;
-        public uint paramFlagsA;
-        public uint paramFlagsB;
+        [EnumFlags]
+        public CameraLayers paramFlagsA;
+        [EnumFlags]
+        public CameraLayers paramFlagsB;
+
+        public Quaternion Rotation
+        {
+            get
+            {
+                return Quaternion.Euler(rotation);
+            }
+        }
 
         public void Deserialize(BinaryReader reader)
         {
             position = reader.GetVector3Position();
             rotation = reader.GetVector3Rotation();
             fov = reader.GetFloat();
-            paramFlagsA = reader.GetUInt32();
-            paramFlagsB = reader.GetUInt32();
+            paramFlagsA = (CameraLayers)reader.GetUInt32();
+            paramFlagsB = (CameraLayers)reader.GetUInt32();
+
+            //paramsA = new BitLayer(paramFlagsA);
+            //paramsB = new BitLayer(paramFlagsB);
         }
         public void Serialize(BinaryWriter writer)
         {
             writer.WritePosition(position);
-            writer.WriteRotation(position);
-            writer.Write(fov);
-            writer.Write(paramFlagsA);
-            writer.Write(paramFlagsB);
+            writer.WriteRotation(rotation);
+            writer.WriteX(fov);
+            writer.WriteX((uint)paramFlagsA);
+            writer.WriteX((uint)paramFlagsB);
         }
+    }
+
+    [Flags]
+    public enum CameraLayers
+    {
+        _1 = 1 << 1,
+        _2 = 1 << 2,
+        _3 = 1 << 3,
+        _4 = 1 << 4,
+        _5 = 1 << 5,
+        _6 = 1 << 6,
+        _7 = 1 << 7,
+        _8 = 1 << 8,
+        _9 = 1 << 9,
+        _10 = 1 << 10,
+        _11 = 1 << 11,
+        _12 = 1 << 12,
+        _13 = 1 << 13,
+        _14 = 1 << 14,
+        _15 = 1 << 15,
+        _16 = 1 << 16,
+        _17 = 1 << 17,
+        _18 = 1 << 18,
+        _19 = 1 << 19,
+        _20 = 1 << 20,
+        _21 = 1 << 21,
+        _22 = 1 << 22,
+        _23 = 1 << 23,
+        _24 = 1 << 24,
+        _25 = 1 << 25,
+        _26 = 1 << 26,
+        _27 = 1 << 27,
+        _28 = 1 << 28,
+        _29 = 1 << 29,
+        _30 = 1 << 30,
+        _31 = 1 << 31,
+        _32 = 1 << 32,
     }
 }
 

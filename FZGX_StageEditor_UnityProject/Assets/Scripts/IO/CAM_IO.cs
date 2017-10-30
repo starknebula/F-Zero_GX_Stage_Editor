@@ -56,13 +56,17 @@ namespace GameCube.Games.FZeroGX.IO
         {
             foreach (CAM export in exportData)
             {
-                BinaryWriter writer = new BinaryWriter(new MemoryStream());
-                export.CameraData.Serialize(writer);
-                Save(writer, export.name);
+                using (BinaryWriter writer = new BinaryWriter(new MemoryStream()))
+                {
+                    export.CameraData.Serialize(writer);
+                    Save(writer, export.name);
+                    EditorUtility.SetDirty(export);
+                }
             }
+            EditorUtility.SetDirty(this);
         }
 
-        private void ImportCameraData(string rawFileName, string exportAssetPath)
+        private void ImportCameraData(string rawFileName, string importAssetPath)
         {
             try
             {
@@ -71,10 +75,10 @@ namespace GameCube.Games.FZeroGX.IO
                     CAM so = ScriptableObject.CreateInstance(typeof(CAM)) as CAM;
                     so.CameraData = new LiveCamStage();
                     so.CameraData.Deserialize(reader);
-                    AssetDatabase.CreateAsset(so, exportAssetPath);
+                    AssetDatabase.CreateAsset(so, importAssetPath);
                 }
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Debug.LogWarning(e.Message);
             }
@@ -86,20 +90,19 @@ namespace GameCube.Games.FZeroGX.IO
                 for (int i = 0; i < 50; i++)
                 {
                     string rawFileName = string.Format(liveCamStageFormat, i, sourceExtension);
-                    string exportAssetPath = string.Format(importPath + "/" + liveCamStageFormat, i, "asset");
+                    string importAssetPath = string.Format(importPath + "/" + liveCamStageFormat, i, "asset");
 
-                    ImportCameraData(rawFileName, exportAssetPath);
+                    ImportCameraData(rawFileName, importAssetPath);
                 }
             }
 
             foreach (string liveCam50Stage in LiveCam50Stages)
             {
                 string rawFileName = string.Format(liveCam50Stage, sourceExtension);
-                string exportAssetPath = string.Format(importPath + "/" + liveCam50Stage, "asset");
+                string importAssetPath = string.Format(importPath + "/" + liveCam50Stage, "asset");
 
-                ImportCameraData(rawFileName, exportAssetPath);
+                ImportCameraData(rawFileName, importAssetPath);
             }
         }
-
     }
 }

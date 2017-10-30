@@ -15,52 +15,52 @@ public static partial class BinaryWriterExtensions
 
     public static void WritePosition(this BinaryWriter writer, Vector3 value)
     {
-        writer.Write(value.x * ((StageManager.doInverseWindingPositionX) ? -1f : 1f));
-        writer.Write(value.y);
-        writer.Write(value.z);
+        writer.WriteX(value.x * ((StageManager.doInverseWindingPositionX) ? -1f : 1f));
+        writer.WriteX(value.y);
+        writer.WriteX(value.z);
     }
     public static void WriteRotation(this BinaryWriter writer, Vector3 value)
     {
-        writer.Write(value.x * ((StageManager.doInverseWindingRotationX) ? -1f : 1f));
-        writer.Write(value.y);
-        writer.Write(value.z);
+        writer.WriteX(value.x * ((StageManager.doInverseWindingRotationX) ? -1f : 1f));
+        writer.WriteX(value.y);
+        writer.WriteX(value.z);
     }
     public static void WriteScale(this BinaryWriter writer, Vector3 value)
     {
-        writer.Write(value.x * ((StageManager.doInverseWindingScaleX) ? -1f : 1f));
-        writer.Write(value.y);
-        writer.Write(value.z);
+        writer.WriteX(value.x * ((StageManager.doInverseWindingScaleX) ? -1f : 1f));
+        writer.WriteX(value.y);
+        writer.WriteX(value.z);
     }
     public static void WriteNormal(this BinaryWriter writer, Vector3 value)
     {
-        writer.Write(value.x * ((StageManager.doInverseWindingNormalX) ? -1f : 1f));
-        writer.Write(value.y);
-        writer.Write(value.z);
+        writer.WriteX(value.x * ((StageManager.doInverseWindingNormalX) ? -1f : 1f));
+        writer.WriteX(value.y);
+        writer.WriteX(value.z);
     }
 
     public static void WriteX(this BinaryWriter writer, Vector2 value)
     {
-        writer.Write(value.x);
-        writer.Write(value.y);
+        writer.WriteX(value.x);
+        writer.WriteX(value.y);
     }
     public static void WriteX(this BinaryWriter writer, Vector3 value)
     {
-        writer.Write(value.x);
-        writer.Write(value.y);
-        writer.Write(value.z);
+        writer.WriteX(value.x);
+        writer.WriteX(value.y);
+        writer.WriteX(value.z);
     }
     public static void WriteX(this BinaryWriter writer, Color32 value)
     {
-        writer.Write(value.r);
-        writer.Write(value.g);
-        writer.Write(value.b);
-        writer.Write(value.a);
+        writer.WriteX(value.r);
+        writer.WriteX(value.g);
+        writer.WriteX(value.b);
+        writer.WriteX(value.a);
     }
     public static void WriteX(this BinaryWriter writer, Quaternion value)
     {
-        writer.Write(value.x);
-        writer.Write(value.y);
-        writer.Write(value.z);
-        writer.Write(value.w);
+        writer.WriteX(value.x);
+        writer.WriteX(value.y);
+        writer.WriteX(value.z);
+        writer.WriteX(value.w);
     }
 }
