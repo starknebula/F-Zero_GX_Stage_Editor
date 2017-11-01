@@ -35,6 +35,8 @@ namespace GameCube.Games.FZeroGX
                     rFrom = pan.interpolateFrom.Rotation,
                     rTo = pan.interpolateTo.Rotation;
 
+                UnityEditor.Handles.Label(from + Vector3.up * 5f, (iteration + 1).ToString());
+
                 Gizmos.DrawSphere(from, radiusStartEnd);
                 Gizmos.DrawWireSphere(to, radiusStartEnd);
                 Gizmos.DrawLine(from, from + rFrom * Vector3.forward * lineLength);
