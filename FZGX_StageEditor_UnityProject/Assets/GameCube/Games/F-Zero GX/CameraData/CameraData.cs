@@ -100,8 +100,19 @@ namespace GameCube.Games.FZeroGX.FileStructures
 
         public void Deserialize(BinaryReader reader)
         {
-            position = reader.GetVector3Position();
-            rotation = reader.GetVector3Rotation();
+            position = new Vector3();
+            rotation = new Vector3();
+
+            position.x = -reader.GetFloat();
+            position.y = reader.GetFloat();
+            position.z = reader.GetFloat();
+
+            rotation.x = -reader.GetFloat();
+            rotation.y = reader.GetFloat();
+            rotation.z = reader.GetFloat();
+
+            //position = reader.GetVector3Position();
+            //rotation = reader.GetVector3Rotation();
             fov = reader.GetFloat();
             paramFlagsA = (CameraLayers)reader.GetUInt32();
             paramFlagsB = (CameraLayers)reader.GetUInt32();
@@ -110,6 +121,12 @@ namespace GameCube.Games.FZeroGX.FileStructures
         {
             writer.WritePosition(position);
             writer.WriteRotation(rotation);
+
+            //writer.WriteX(-rotation.y);
+            //writer.WriteX(-rotation.x);
+            //writer.WriteX(rotation.z);
+
+
             writer.WriteX(fov);
             writer.WriteX((uint)paramFlagsA);
             writer.WriteX((uint)paramFlagsB);

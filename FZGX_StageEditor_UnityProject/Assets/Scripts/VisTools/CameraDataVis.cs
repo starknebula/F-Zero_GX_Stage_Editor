@@ -12,12 +12,15 @@ public class CameraDataVis : MonoBehaviour
 {
     [SerializeField]
     private CAM cam;
-    [SerializeField]
-    private float radiusStartEnd, radiusLerpPoint;
-    [SerializeField]
-    private float lineLength;
 
-
+    //[SerializeField]
+    //private float radiusStartEnd, radiusLerpPoint;
+    //[SerializeField]
+    //private float lineLength;
+    //[SerializeField]
+    //Vector3 addedRotation;
+    //[SerializeField]
+    //int probe;
 
     public void PlayCameraAnimation()
     {
@@ -27,79 +30,83 @@ public class CameraDataVis : MonoBehaviour
         StartCoroutine(PlayAnim());
     }
 
+    //void OnDrawGizmos()
+    //{
+    //    int index = 0;
+    //    foreach (CameraPan pan in cam.CameraData.cameraPans)
+    //    {
+    //        if (index == probe)
+    //        {
+    //            Vector3 lookNormal = -(pan.interpolateTo.position - Vector3.zero).normalized;
+    //            Quaternion rotDif = Quaternion.FromToRotation(Vector3.forward, lookNormal);
+
+    //            Gizmos.color = Color.white;
+    //            Gizmos.DrawLine(Vector3.zero, Vector3.forward * 3);
+    //            Gizmos.color = Color.red;
+    //            Gizmos.DrawLine(Vector3.zero, rotDif * Vector3.forward * 2);
+    //            Gizmos.color = Color.green;
+    //            Gizmos.DrawLine(Vector3.zero, lookNormal);
+
+    //        }
+    //        index++;
+    //    }
+    //}
 
 
     private IEnumerator PlayAnim()
     {
+        Camera camera = Camera.main;
+
+        // We are dealing with a Camera Matrix here
+        // Which explains the dumb numbers and inability to just "insert" rotational values
+        // http://catlikecoding.com/unity/tutorials/rendering/part-1/
+
         int iteration = 0;
         int length = cam.CameraData.cameraPans.Count;
         foreach (CameraPan pan in cam.CameraData.cameraPans)
         {
             float lerpSpeed = pan.@params.lerpSpeed;
-            Vector3
-                from = pan.interpolateFrom.position,
-                to = pan.interpolateTo.position;
-            Vector3
-                rFrom = pan.interpolateFrom.rotation,
-                rTo = pan.interpolateTo.rotation;
+            int frameDuration = (int)pan.@params.frameDuration;
 
-            rFrom.y += 180;
-            rTo.y += 180;
+            // Defines the forward axis
+            // This is solved with Quaternion.FromToRotation which converts the rotation from froward (+z) to this
+            // Arbitrary axis as forward/back (depth)
+            Vector3 cameraDepthAxis = (pan.interpolateFrom.position - pan.interpolateTo.position).normalized;
+            Quaternion worldToCameraRotation = Quaternion.FromToRotation(Vector3.forward, cameraDepthAxis);
+            Quaternion cameraToWorldRotation = Quaternion.FromToRotation(cameraDepthAxis, Vector3.forward);
 
-            float thisFrameFOV = pan.interpolateFrom.fov;
-            float lastFramFOV = thisFrameFOV;
-            Vector3 thisFramePos = from;
-            Vector3 lastFramePos = thisFramePos;
-            Vector3 thisFrameRot = rFrom;
-            Vector3 lastFrameRot = thisFrameRot;
+            Matrix4x4 cameraMatrix = Matrix4x4.LookAt(pan.interpolateFrom.position, pan.interpolateTo.position, worldToCameraRotation * Vector3.up);
 
-            // DEBUG
-            Color c = Palette.ColorWheel(iteration, length);
-            //UnityEditor.Handles.Label(from + Vector3.up * 5f, (iteration + 1).ToString());
-
-            //UnityEditor.Handles.DrawSphere(0, from, Quaternion.identity, radiusStartEnd);
-            //UnityEditor.Handles.DrawSphere(0, to, Quaternion.identity, radiusStartEnd);
-
-
-            //Quaternion lookatVector = Quaternion.FromToRotation(from.normalized, to.normalized);
-            Vector3 dir = (to - from).normalized;
-            dir = Vector3.one - dir;
-            dir /= 5f;
-
-            for (uint i = 0; i < pan.@params.frameDuration; i++)
+            for (uint i = 0; i < frameDuration; i++)
             {
-                lastFramePos = thisFramePos;
-                thisFramePos = Vector3.Lerp(lastFramePos, to, lerpSpeed);
+                float percent = (float)i / frameDuration;
 
-                lastFrameRot = thisFrameRot;
-                thisFrameRot = Vector3.Slerp(lastFrameRot, rTo, lerpSpeed);
+                camera.fieldOfView = Mathf.Lerp(pan.interpolateFrom.fov, pan.interpolateTo.fov, percent);
+                camera.transform.position = Vector3.Lerp(pan.interpolateFrom.position, pan.interpolateTo.position, percent);
 
-                lastFramFOV = thisFrameFOV;
-                thisFrameFOV = Mathf.Lerp(lastFramFOV, thisFrameFOV, lerpSpeed);
+                //Quaternion rotationLerp = Quaternion.Slerp(
+                //    Quaternion.Euler(pan.interpolateFrom.rotation),
+                //    Quaternion.Euler(pan.interpolateTo.rotation),
+                //    percent / 5f);
+                Vector3 vRotationLerp = Vector3.Slerp(pan.interpolateFrom.rotation, pan.interpolateTo.rotation, percent);
 
-                Camera.main.transform.position = thisFramePos;
-                //Camera.main.transform.rotation = Quaternion.Euler(thisFrameRot.x * dir.x, thisFrameRot.y * dir.y, thisFrameRot.z * dir.z);
-                Vector3 lookPos = Quaternion.Euler(thisFrameRot) * dir;
-                Camera.main.transform.LookAt(Camera.main.transform.position + lookPos, Vector3.up);
+                // Appears to be somewhat the appropriate way
+                //camera.transform.rotation = Quaternion.FromToRotation(Vector3.forward, Quaternion.Euler(vRotationLerp) * cameraForward);
 
-                Camera.main.fieldOfView = thisFrameFOV;
+                // Works WELL for SOME angles (low rotation?)
+                // The thought was convert from our space into theirs (new z/depth), then back
+                //camera.transform.rotation = Quaternion.FromToRotation(Quaternion.Euler(vRotationLerp) * cameraForward, Vector3.forward);
+
+                // From camera (GX) space to world (Unity)
+                camera.worldToCameraMatrix = cameraMatrix * transform.worldToLocalMatrix;
+                camera.transform.rotation = Quaternion.Euler(vRotationLerp);
+
                 yield return new WaitForEndOfFrame();
-
-                Debug.DrawLine(from, from + Quaternion.Euler(rFrom) * Vector3.forward * lineLength, c);
-                Debug.DrawLine(to, to + Quaternion.Euler(rTo) * Vector3.forward * lineLength, c);
-                Debug.DrawLine(from, to, c);
             }
 
             iteration++;
         }
 
-        
-    }
 
-    private bool CheckLayer(int index, CameraLayers layer)
-    {
-        return (((int)layer >> index) & 1) > 0;
     }
-
 }
-
