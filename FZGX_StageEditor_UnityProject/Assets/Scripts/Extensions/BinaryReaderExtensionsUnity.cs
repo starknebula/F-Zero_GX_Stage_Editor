@@ -61,6 +61,14 @@ namespace System.IO
                 reader.GetFloat()
                 );
         }
+        public static Vector3 GetVector3(this BinaryReader reader)
+        {
+            return new Vector3(
+                reader.GetFloat(),
+                reader.GetFloat(),
+                reader.GetFloat()
+                );
+        }
 
         public static void SkipBytes(this BinaryReader reader, int count)
         {
