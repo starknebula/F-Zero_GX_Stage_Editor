@@ -12,7 +12,7 @@ namespace GameCube.Games.FZeroGX
     public class CameraDebugger : MonoBehaviour
     {
         [SerializeField]
-        private CAM cam;
+        private CameraScriptableObject cam;
         [SerializeField]
         private float radiusStartEnd, radiusLerpPoint;
         [SerializeField]

@@ -1,6 +1,6 @@
 ﻿// Created by Raphael "Stark" Tetreault 07/06/2015
 // Copyright © 2016 Raphael Tetreault
-// Last updated 29/10/2016
+// Last updated 25/10/2017
 
 namespace System.IO
 {
@@ -15,8 +15,24 @@ namespace System.IO
         /// <remarks>
         /// This field is set to <c>true</c> by default.
         /// </remarks>
-        public static bool isLittleEndian = true;
-
+        private static bool isLittleEndian = false;
+        /// <summary>
+        /// Indicates the byte order ("endianness") in which data is read from the stream.
+        /// </summary>
+        /// <remarks>
+        /// This field is set to <c>false</c> by default.
+        /// </remarks>
+        public static bool IsLittleEndian
+        {
+            get
+            {
+                return isLittleEndian;
+            }
+            set
+            {
+                isLittleEndian = value;
+            }
+        }
 
         /// <summary>
         /// Mimics the functionality of StreamReader.EndOfStream
@@ -36,7 +52,7 @@ namespace System.IO
         /// <param name="bitCount">The amount of bits to read.</param>
         public static byte GetBits(this BinaryReader binaryReader, int index, int bitCount)
         {
-            if (index    > 7)
+            if (index > 7)
                 throw new IndexOutOfRangeException("The index specified for BinaryReaderExceptions.GetBits is greater than 7 which is out of range!");
             if (bitCount > 7)
                 throw new IndexOutOfRangeException("BinaryReaderExceptions.GetBits cannot read more than 8 bits!");
@@ -121,7 +137,9 @@ namespace System.IO
         public static short GetInt16(this BinaryReader binaryReader)
         {
             byte[] bytes = binaryReader.ReadBytes(2);
-            if (isLittleEndian) Array.Reverse(bytes);
+
+            if (BitConverter.IsLittleEndian ^ isLittleEndian)
+                Array.Reverse(bytes);
 
             return BitConverter.ToInt16(bytes, 0);
         }
@@ -132,7 +150,9 @@ namespace System.IO
         public static ushort GetUInt16(this BinaryReader binaryReader)
         {
             byte[] bytes = binaryReader.ReadBytes(2);
-            if (isLittleEndian) Array.Reverse(bytes);
+
+            if (BitConverter.IsLittleEndian ^ isLittleEndian)
+                Array.Reverse(bytes);
 
             return BitConverter.ToUInt16(bytes, 0);
         }
@@ -144,7 +164,9 @@ namespace System.IO
         public static int GetInt32(this BinaryReader binaryReader)
         {
             byte[] bytes = binaryReader.ReadBytes(4);
-            if (isLittleEndian) Array.Reverse(bytes);
+
+            if (BitConverter.IsLittleEndian ^ isLittleEndian)
+                Array.Reverse(bytes);
 
             return BitConverter.ToInt32(bytes, 0);
         }
@@ -155,7 +177,9 @@ namespace System.IO
         public static uint GetUInt32(this BinaryReader binaryReader)
         {
             byte[] bytes = binaryReader.ReadBytes(4);
-            if (isLittleEndian) Array.Reverse(bytes);
+
+            if (BitConverter.IsLittleEndian ^ isLittleEndian)
+                Array.Reverse(bytes);
 
             return BitConverter.ToUInt32(bytes, 0);
         }
@@ -190,7 +214,9 @@ namespace System.IO
         public static float GetFloat(this BinaryReader binaryReader)
         {
             byte[] bytes = binaryReader.ReadBytes(4);
-            if (isLittleEndian) Array.Reverse(bytes);
+
+            if (BitConverter.IsLittleEndian ^ isLittleEndian)
+                Array.Reverse(bytes);
 
             return BitConverter.ToSingle(bytes, 0);
         }
@@ -201,7 +227,9 @@ namespace System.IO
         public static double GetDouble(this BinaryReader binaryReader)
         {
             byte[] bytes = binaryReader.ReadBytes(8);
-            if (isLittleEndian) Array.Reverse(bytes);
+
+            if (BitConverter.IsLittleEndian ^ isLittleEndian)
+                Array.Reverse(bytes);
 
             return BitConverter.ToDouble(bytes, 0);
         }
@@ -212,7 +240,9 @@ namespace System.IO
         public static decimal GetDecimal(this BinaryReader binaryReader)
         {
             byte[] bytes = binaryReader.ReadBytes(16);
-            if (isLittleEndian) Array.Reverse(bytes);
+
+            if (BitConverter.IsLittleEndian ^ isLittleEndian)
+                Array.Reverse(bytes);
 
             // Merge 4 bytes into 1 int, then 4 ints into 1 decimal
             return new decimal(new int[]

@@ -4,6 +4,7 @@
 
 using System.IO;
 using UnityEngine;
+using UnityEditor;
 
 public abstract class ImportExportObject : ScriptableObject
 {
@@ -90,7 +91,6 @@ public abstract class ImportExportObject : ScriptableObject
     {
         WriteFile(binaryWriter, exportPath, fileName, sourceExtension, fileMode, fileAccess);
     }
-
     private void WriteFile(BinaryWriter binaryWriter, string directory, string fileName, string fileExtension, FileMode fileMode, FileAccess fileAccess)
     {
         binaryWriter.Flush();
@@ -106,6 +106,21 @@ public abstract class ImportExportObject : ScriptableObject
 
         if (debugSavePath)
             Debug.Log(filePath);
+    }
+    public ScriptableObjectType CreateScriptableObject<ScriptableObjectType>(string fileName) where ScriptableObjectType : ScriptableObject
+    {
+        ScriptableObjectType so = ScriptableObject.CreateInstance(typeof(ScriptableObjectType)) as ScriptableObjectType;
+        AssetDatabase.CreateAsset(so, Path.Combine(importPath, fileName) + ".asset");
+
+        return so;
+    }
+    public ScriptableObjectType CreateScriptableObjectFromBinaryStream<ScriptableObjectType>(string fileName, BinaryReader reader) where ScriptableObjectType : ScriptableObject, IBinarySerializable2
+    {
+        ScriptableObjectType so = ScriptableObject.CreateInstance(typeof(ScriptableObjectType)) as ScriptableObjectType;
+        so.Deserialize(reader);
+        AssetDatabase.CreateAsset(so, Path.Combine(importPath, fileName) + ".asset");
+
+        return so;
     }
 }
 

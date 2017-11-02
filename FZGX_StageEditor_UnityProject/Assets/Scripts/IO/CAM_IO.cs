@@ -16,7 +16,7 @@ namespace GameCube.Games.FZeroGX.IO
     public class CAM_IO : ImportExportObject
     {
         [SerializeField]
-        private CAM[] exportData;
+        private CameraScriptableObject[] exportData;
 
         public override string HelpBoxImport => "Imports all assets from \"cam/\" into Unity editable ScriptableObjects at 'Import Path'";
         public override string HelpBoxExport => "Exports all assets in 'Export Data' into packed .bin format used by F-Zero GX.";
@@ -54,7 +54,7 @@ namespace GameCube.Games.FZeroGX.IO
         }
         public override void Export()
         {
-            foreach (CAM export in exportData)
+            foreach (CameraScriptableObject export in exportData)
             {
                 using (BinaryWriter writer = new BinaryWriter(new MemoryStream()))
                 {
@@ -72,7 +72,7 @@ namespace GameCube.Games.FZeroGX.IO
             {
                 using (BinaryReader reader = OpenBinaryReaderWithFile(rawFileName))
                 {
-                    CAM so = ScriptableObject.CreateInstance(typeof(CAM)) as CAM;
+                    CameraScriptableObject so = ScriptableObject.CreateInstance(typeof(CameraScriptableObject)) as CameraScriptableObject;
                     so.CameraData = new LiveCamStage();
                     so.CameraData.Deserialize(reader);
                     AssetDatabase.CreateAsset(so, importAssetPath);

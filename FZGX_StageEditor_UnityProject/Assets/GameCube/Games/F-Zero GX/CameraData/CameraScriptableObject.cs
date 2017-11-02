@@ -9,7 +9,7 @@ using UnityEngine;
 namespace GameCube.Games.FZeroGX.FileStructures
 {
     [CreateAssetMenu(fileName = "CameraData", menuName = "FZGX ScriptableObject/Camera Data")]
-    public class CAM : ScriptableObject
+    public class CameraScriptableObject : ScriptableObject
     {
         [SerializeField]
         protected LiveCamStage cameraData;

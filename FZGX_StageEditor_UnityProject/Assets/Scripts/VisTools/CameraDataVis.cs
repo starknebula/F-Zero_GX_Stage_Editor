@@ -11,7 +11,7 @@ using GameCube.Games.FZeroGX.FileStructures;
 public class CameraDataVis : MonoBehaviour
 {
     [SerializeField]
-    private CAM cam;
+    private CameraScriptableObject cam;
 
     //[SerializeField]
     //private float radiusStartEnd, radiusLerpPoint;
