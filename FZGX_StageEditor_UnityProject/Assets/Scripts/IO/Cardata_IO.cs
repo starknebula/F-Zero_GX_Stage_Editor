@@ -40,12 +40,12 @@ namespace GameCube.Games.FZeroGX.IO
                 {
                     int displayIndex = i+1;
 
-                    // Dark Schneider
-                    if (displayIndex == 31)
-                        displayIndex = 0;
-                    else if (i > 31)
+                    // AX Machines
+                    if (displayIndex > 31)
                         displayIndex -= 1;
-                    
+                    // Dark Schneider
+                    else if (displayIndex == 31)
+                        displayIndex = 0;
 
                     string fileName = string.Format("cardata_{0}_{1}", (displayIndex).ToString(), (VehicleName)displayIndex);
                     container.CarStats.Add(CreateScriptableObjectFromBinaryStream<CarStatsScriptableObject>(fileName, reader));
