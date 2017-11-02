@@ -13,7 +13,7 @@ namespace GameCube.Games.FZeroGX.FileStructures
     [CreateAssetMenu(fileName = "CarData", menuName = "FZGX ScriptableObject/CarData")]
     public class CarStatsScriptableObject : ScriptableObject, IBinarySerializable2
     {
-        public float machineNamePtr;
+        public float customMachineWeight;
         public float weight;
         public float acceleration;
         public float maxSpeed;
@@ -47,7 +47,7 @@ namespace GameCube.Games.FZeroGX.FileStructures
 
         public void Deserialize(BinaryReader reader)
         {
-            machineNamePtr = reader.GetFloat();
+            customMachineWeight = reader.GetFloat();
             weight = reader.GetFloat();
             acceleration = reader.GetFloat();
             maxSpeed = reader.GetFloat();
@@ -81,7 +81,7 @@ namespace GameCube.Games.FZeroGX.FileStructures
         }
         public void Serialize(BinaryWriter writer)
         {
-            writer.WriteX(machineNamePtr);
+            writer.WriteX(customMachineWeight);
             writer.WriteX(weight);
             writer.WriteX(acceleration);
             writer.WriteX(maxSpeed);

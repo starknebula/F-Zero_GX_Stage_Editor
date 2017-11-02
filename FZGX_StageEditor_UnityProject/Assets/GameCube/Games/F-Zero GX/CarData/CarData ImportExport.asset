@@ -11,11 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b860235f61924244b35178bd1e8525c, type: 3}
   m_Name: CarData ImportExport
   m_EditorClassIdentifier: 
-  fileMode: 2
-  fileAccess: 2
+  fileMode: 3
+  fileAccess: 3
+  fileShare: 3
   debugSavePath: 1
   sourceExtension: bin
   sourcePath: Resources/FZGX_EN/init
   importPath: Assets/GameCube/Games/F-Zero GX/IO/ImportedScriptableObjects/CarData
   exportPath: Assets/GameCube/Games/F-Zero GX/IO/ExportedScriptableObjects/CarData
   fileName: cardata,lz
+  exportData: {fileID: 11400000, guid: 6bd975f40288cc440b02080ad50a4366, type: 2}
