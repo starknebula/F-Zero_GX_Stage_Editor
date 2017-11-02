@@ -24,5 +24,20 @@ namespace GameCube.Games.FZeroGX.FileStructures
                 carStats = value;
             }
         }
+
+        [SerializeField]
+        protected List<CarStatsScriptableObject> customPartStats = new List<CarStatsScriptableObject>();
+        public List<CarStatsScriptableObject> CustomPartStats
+        {
+            get
+            {
+                return customPartStats;
+            }
+            internal set
+            {
+                customPartStats = value;
+            }
+        }
+
     }
 }
