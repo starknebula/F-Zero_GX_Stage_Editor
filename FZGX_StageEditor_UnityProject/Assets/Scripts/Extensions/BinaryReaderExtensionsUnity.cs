@@ -11,7 +11,7 @@ namespace System.IO
     /// <summary>
     /// Defines BinaryReaderExtensions for F-Zero GX Stage Editor with Unity-specific structs
     /// </summary>
-    public static partial class BinaryReaderExtensions
+    public static partial class BinaryReaderWriterExtensions
     {
         public static Vector3 GetVector3Position(this BinaryReader reader)
         {

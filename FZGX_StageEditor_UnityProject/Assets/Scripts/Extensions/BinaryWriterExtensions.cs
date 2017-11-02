@@ -8,122 +8,125 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static partial class BinaryWriterExtensions
+namespace System.IO
 {
-    /// Indicates the byte order ("endianness") in which data is written to the stream.
-    /// </summary>
-    /// <remarks>
-    /// This field is set to <c>true</c> by default.
-    /// </remarks>
-    private static bool isLittleEndian = false;
-    /// <summary>
-    /// Indicates the byte order ("endianness") in which data is written to the stream.
-    /// </summary>
-    /// <remarks>
-    /// This field is set to <c>false</c> by default.
-    /// </remarks>
-    public static bool IsLittleEndian
+    public static partial class BinaryReaderWriterExtensions
     {
-        get
+        ///// Indicates the byte order ("endianness") in which data is written to the stream.
+        ///// </summary>
+        ///// <remarks>
+        ///// This field is set to <c>true</c> by default.
+        ///// </remarks>
+        //private static bool isLittleEndian = false;
+        ///// <summary>
+        ///// Indicates the byte order ("endianness") in which data is written to the stream.
+        ///// </summary>
+        ///// <remarks>
+        ///// This field is set to <c>false</c> by default.
+        ///// </remarks>
+        //public static bool IsLittleEndian
+        //{
+        //    get
+        //    {
+        //        return isLittleEndian;
+        //    }
+        //    set
+        //    {
+        //        isLittleEndian = value;
+        //    }
+        //}
+
+        public static void WriteX(this BinaryWriter writer, byte value)
         {
-            return isLittleEndian;
+            writer.Write(value);
         }
-        set
+        public static void WriteX(this BinaryWriter writer, sbyte value)
         {
-            isLittleEndian = value;
+            writer.Write(value);
         }
-    }
+        public static void WriteX(this BinaryWriter writer, ushort value)
+        {
+            byte[] bytes = BitConverter.GetBytes(value);
 
-    public static void WriteX(this BinaryWriter writer, byte value)
-    {
-        writer.Write(value);
-    }
-    public static void WriteX(this BinaryWriter writer, sbyte value)
-    {
-        writer.Write(value);
-    }
-    public static void WriteX(this BinaryWriter writer, ushort value)
-    {
-        byte[] bytes = BitConverter.GetBytes(value);
+            if (BitConverter.IsLittleEndian ^ IsLittleEndian)
+                Array.Reverse(bytes);
 
-        if (BitConverter.IsLittleEndian ^ isLittleEndian)
-            Array.Reverse(bytes);
+            writer.Write(bytes);
+        }
+        public static void WriteX(this BinaryWriter writer, short value)
+        {
+            byte[] bytes = BitConverter.GetBytes(value);
 
-        writer.Write(bytes);
-    }
-    public static void WriteX(this BinaryWriter writer, short value)
-    {
-        byte[] bytes = BitConverter.GetBytes(value);
+            if (BitConverter.IsLittleEndian ^ IsLittleEndian)
+                Array.Reverse(bytes);
 
-        if (BitConverter.IsLittleEndian ^ isLittleEndian)
-            Array.Reverse(bytes);
+            writer.Write(bytes);
+        }
+        public static void WriteX(this BinaryWriter writer, uint value)
+        {
+            byte[] bytes = BitConverter.GetBytes(value);
 
-        writer.Write(bytes);
-    }
-    public static void WriteX(this BinaryWriter writer, uint value)
-    {
-        byte[] bytes = BitConverter.GetBytes(value);
+            if (BitConverter.IsLittleEndian ^ IsLittleEndian)
+                Array.Reverse(bytes);
 
-        if (BitConverter.IsLittleEndian ^ isLittleEndian)
-            Array.Reverse(bytes);
+            writer.Write(bytes);
+        }
+        public static void WriteX(this BinaryWriter writer, int value)
+        {
+            byte[] bytes = BitConverter.GetBytes(value);
 
-        writer.Write(bytes);
-    }
-    public static void WriteX(this BinaryWriter writer, int value)
-    {
-        byte[] bytes = BitConverter.GetBytes(value);
+            if (BitConverter.IsLittleEndian ^ IsLittleEndian)
+                Array.Reverse(bytes);
 
-        if (BitConverter.IsLittleEndian ^ isLittleEndian)
-            Array.Reverse(bytes);
+            writer.Write(bytes);
+        }
+        public static void WriteX(this BinaryWriter writer, ulong value)
+        {
+            byte[] bytes = BitConverter.GetBytes(value);
 
-        writer.Write(bytes);
-    }
-    public static void WriteX(this BinaryWriter writer, ulong value)
-    {
-        byte[] bytes = BitConverter.GetBytes(value);
+            if (BitConverter.IsLittleEndian ^ IsLittleEndian)
+                Array.Reverse(bytes);
 
-        if (BitConverter.IsLittleEndian ^ isLittleEndian)
-            Array.Reverse(bytes);
+            writer.Write(bytes);
+        }
+        public static void WriteX(this BinaryWriter writer, long value)
+        {
+            byte[] bytes = BitConverter.GetBytes(value);
 
-        writer.Write(bytes);
-    }
-    public static void WriteX(this BinaryWriter writer, long value)
-    {
-        byte[] bytes = BitConverter.GetBytes(value);
+            if (BitConverter.IsLittleEndian ^ IsLittleEndian)
+                Array.Reverse(bytes);
 
-        if (BitConverter.IsLittleEndian ^ isLittleEndian)
-            Array.Reverse(bytes);
+            writer.Write(bytes);
+        }
+        public static void WriteX(this BinaryWriter writer, float value)
+        {
+            byte[] bytes = BitConverter.GetBytes(value);
 
-        writer.Write(bytes);
-    }
-    public static void WriteX(this BinaryWriter writer, float value)
-    {
-        byte[] bytes = BitConverter.GetBytes(value);
+            if (BitConverter.IsLittleEndian ^ IsLittleEndian)
+                Array.Reverse(bytes);
 
-        if (BitConverter.IsLittleEndian ^ isLittleEndian)
-            Array.Reverse(bytes);
+            writer.Write(bytes);
+        }
+        public static void WriteX(this BinaryWriter writer, double value)
+        {
+            byte[] bytes = BitConverter.GetBytes(value);
 
-        writer.Write(bytes);
-    }
-    public static void WriteX(this BinaryWriter writer, double value)
-    {
-        byte[] bytes = BitConverter.GetBytes(value);
+            if (BitConverter.IsLittleEndian ^ IsLittleEndian)
+                Array.Reverse(bytes);
 
-        if (BitConverter.IsLittleEndian ^ isLittleEndian)
-            Array.Reverse(bytes);
-
-        writer.Write(bytes);
-    }
-    public static void WriteX(this BinaryWriter writer, char value)
-    {
-        throw new NotImplementedException();
-    }
-    public static void WriteX(this BinaryWriter writer, string value)
-    {
-        throw new NotImplementedException();
-    }
-    public static void WriteX(this BinaryWriter writer, decimal value)
-    {
-        throw new NotImplementedException();
+            writer.Write(bytes);
+        }
+        public static void WriteX(this BinaryWriter writer, char value)
+        {
+            throw new NotImplementedException();
+        }
+        public static void WriteX(this BinaryWriter writer, string value)
+        {
+            throw new NotImplementedException();
+        }
+        public static void WriteX(this BinaryWriter writer, decimal value)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

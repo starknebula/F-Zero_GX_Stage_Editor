@@ -9,53 +9,71 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using GameCube.Games.FZeroGX.FileStructures;
+using GameCube.Games.FZeroGX.Machines;
 
 namespace GameCube.Games.FZeroGX.IO
 {
     [CreateAssetMenu(fileName = "CarData ImportExport", menuName = "FZGX IO/CarData ImportExport")]
     public class Cardata_IO : ImportExportObject
     {
+        private readonly int numberOfVehicles = Enum.GetNames(typeof(VehicleName)).Length;
+
         [SerializeField]
         private string fileName = "cardata,lz";
         [SerializeField]
-        private CarDataScriptableObject carDataExport;
+        private CarDataScriptableObject exportData;
 
         public override string ImportMessage => "CarData imported!";
-        public override string ExportMessage => "CarData exported!"; 
-        public override string HelpBoxImport => "Imports all modules from 'fileName' into 'importPath'";
-        public override string HelpBoxExport => "Exports 'carDataExport' to 'exportPath'";
+        public override string ExportMessage => "CarData exported!";
+        public override string HelpBoxImport => "Imports all modules from 'fileName' in folder 'sourcePath' into folder 'importPath'";
+        public override string HelpBoxExport => "Exports 'exportData' to folder 'exportPath'";
 
         public override void Import()
         {
-            BinaryReaderExtensions.IsLittleEndian = true;
+            BinaryReaderWriterExtensions.PushEndianess(true);
             using (BinaryReader reader = OpenBinaryReaderWithFile(fileName))
             {
-                CarDataScriptableObject container = CreateScriptableObject<CarDataScriptableObject>("CAR_DATA");
+                CarDataScriptableObject container = CreateScriptableObject<CarDataScriptableObject>(fileName);
+                exportData = container;
 
-                // Get all 41 vehicles
-                for (int i = 0; i < 41; i++)
+                for (int i = 0; i < numberOfVehicles; i++)
                 {
-                    string fileName = string.Format("vehicle_stats_{0}", (i + 1).ToString("00"));
+                    int displayIndex = i+1;
 
-                    container.CarStats.Add(
-                      CreateScriptableObjectFromBinaryStream<CarStatsScriptableObject>(fileName, reader)
-                      );
+                    // Dark Schneider
+                    if (displayIndex == 31)
+                        displayIndex = 0;
+                    else if (i > 31)
+                        displayIndex -= 1;
+                    
+
+                    string fileName = string.Format("cardata_{0}_{1}", (displayIndex).ToString(), (VehicleName)displayIndex);
+                    container.CarStats.Add(CreateScriptableObjectFromBinaryStream<CarStatsScriptableObject>(fileName, reader));
                 }
             }
-            BinaryReaderExtensions.IsLittleEndian = false;
+            BinaryReaderWriterExtensions.PopEndianess();
         }
         public override void Export()
         {
-            BinaryReaderExtensions.IsLittleEndian = true;
-            using (BinaryWriter writer = new BinaryWriter(new MemoryStream()))
+            string sourceFilePath = Path.Combine(SourcePathFull, fileName).PathToSystemPath();
+            string exportFilePath = Path.Combine(ExportPathFull, fileName).PathToSystemPath();
+
+            // Copy original file
+            if (!File.Exists(exportFilePath))
+                File.Copy(sourceFilePath, exportFilePath);
+
+            BinaryReaderWriterExtensions.PushEndianess(true);
+            using (BinaryWriter writer = new BinaryWriter(File.Open(exportFilePath, fileMode, fileAccess)))
             {
-                foreach (CarStatsScriptableObject carStat in carDataExport.CarStats)
+                writer.BaseStream.Seek(0, SeekOrigin.Begin);
+
+                foreach (CarStatsScriptableObject carStat in exportData.CarStats)
                     carStat.Serialize(writer);
-                Save(writer, carDataExport.name);
-                EditorUtility.SetDirty(carDataExport);
+
+                EditorUtility.SetDirty(exportData);
             }
             EditorUtility.SetDirty(this);
-            BinaryReaderExtensions.IsLittleEndian = false;
+            BinaryReaderWriterExtensions.PopEndianess();
         }
     }
 }

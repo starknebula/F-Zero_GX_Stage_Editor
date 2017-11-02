@@ -41,7 +41,7 @@ namespace GameCube.Games.FZeroGX.FileStructures
         public Vector3 tiltBackRight;
         public Vector3 tiltBackLeft;
         public Vector3 wallCollisionFrontRight;
-        public Vector3 wallCollisionfrontLeft;
+        public Vector3 wallCollisionFrontLeft;
         public Vector3 wallCollisionBackRight;
         public Vector3 wallCollisionBackLeft;
 
@@ -75,7 +75,7 @@ namespace GameCube.Games.FZeroGX.FileStructures
             tiltBackRight = reader.GetVector3();
             tiltBackLeft = reader.GetVector3();
             wallCollisionFrontRight = reader.GetVector3();
-            wallCollisionfrontLeft = reader.GetVector3();
+            wallCollisionFrontLeft = reader.GetVector3();
             wallCollisionBackRight = reader.GetVector3();
             wallCollisionBackLeft = reader.GetVector3();
         }
@@ -109,10 +109,9 @@ namespace GameCube.Games.FZeroGX.FileStructures
             writer.WriteX(tiltBackRight);
             writer.WriteX(tiltBackLeft);
             writer.WriteX(wallCollisionFrontRight);
-            writer.WriteX(wallCollisionfrontLeft);
+            writer.WriteX(wallCollisionFrontLeft);
             writer.WriteX(wallCollisionBackRight);
             writer.WriteX(wallCollisionBackLeft);
-
         }
     }
 }

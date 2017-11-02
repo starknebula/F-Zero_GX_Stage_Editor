@@ -1,6 +1,6 @@
-﻿namespace GameCube.Games.FZeroGX.Vehicle
+﻿namespace GameCube.Games.FZeroGX.Machines
 {
-    public enum Vehicle
+    public enum VehicleName
     {
         DarkSchneider = 0,
         RedGazelle,

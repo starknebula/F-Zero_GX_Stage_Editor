@@ -5,7 +5,7 @@
 using System.IO;
 using UnityEngine;
 using UnityEditor;
-
+using System.Text.RegularExpressions;
 public abstract class ImportExportObject : ScriptableObject
 {
     [Header("Save Settings")]
@@ -13,6 +13,8 @@ public abstract class ImportExportObject : ScriptableObject
     protected FileMode fileMode = FileMode.Create;
     [SerializeField]
     protected FileAccess fileAccess = FileAccess.Write;
+    [SerializeField]
+    protected FileShare fileShare = FileShare.None;
     [SerializeField]
     protected bool debugSavePath = true;
 
@@ -31,6 +33,10 @@ public abstract class ImportExportObject : ScriptableObject
     [BrowseFolderField("FZGX_StageEditor_UnityProject/")]
     protected string exportPath;
 
+    // Could use some tidying up
+    public string SourcePathFull => Path.Combine(Application.dataPath, sourcePath).PathToSystemPath();
+    public string ImportPathFull => Path.Combine(Application.dataPath, Regex.Match(importPath, "(?<=Assets/).*$").Value).PathToSystemPath();
+    public string ExportPathFull => Path.Combine(Application.dataPath, Regex.Match(exportPath, "(?<=Assets/).*$").Value).PathToSystemPath();
 
     public virtual string ImportButtonText
     {
@@ -67,37 +73,35 @@ public abstract class ImportExportObject : ScriptableObject
     public abstract void Import();
     public abstract void Export();
 
+
+
+    // TODO
+    // OpenBinaryReaderWithFile assumes FileMode.Open
+
     public BinaryReader OpenBinaryReaderWithFile(string filename)
     {
         return OpenBinaryReaderWithFile(filename, System.Text.Encoding.ASCII);
     }
     public BinaryReader OpenBinaryReaderWithFile(string fileName, System.Text.Encoding encoding)
     {
-        //TextAsset file = Resources.Load<TextAsset>(filename);
         string path = Path.Combine(ProjectAssetsFolder, sourcePath, fileName);
-        using (FileStream fileStream = new FileStream(path, FileMode.Open))
-        {
-            BinaryReader binaryReader = new BinaryReader(new MemoryStream(0), encoding);
-            fileStream.CopyTo(binaryReader.BaseStream);
-            binaryReader.BaseStream.Seek(0, SeekOrigin.Begin);
-            return binaryReader;
-        }
+        return new BinaryReader(File.Open(path, FileMode.Open));
     }
     public void Save(BinaryWriter binaryWriter, string fileName)
     {
-        WriteFile(binaryWriter, exportPath, fileName, sourceExtension, fileMode, fileAccess);
+        WriteStreamToFile(binaryWriter, exportPath, fileName, sourceExtension, fileMode, fileAccess, fileShare);
     }
-    public void Save(BinaryWriter binaryWriter, string fileName, FileMode fileMode, FileAccess fileAccess)
+    public void Save(BinaryWriter binaryWriter, string fileName, FileMode fileMode, FileAccess fileAccess, FileShare fileShare)
     {
-        WriteFile(binaryWriter, exportPath, fileName, sourceExtension, fileMode, fileAccess);
+        WriteStreamToFile(binaryWriter, exportPath, fileName, sourceExtension, fileMode, fileAccess, fileShare);
     }
-    private void WriteFile(BinaryWriter binaryWriter, string directory, string fileName, string fileExtension, FileMode fileMode, FileAccess fileAccess)
+    private void WriteStreamToFile(BinaryWriter binaryWriter, string directory, string fileName, string fileExtension, FileMode fileMode, FileAccess fileAccess, FileShare fileShare)
     {
         binaryWriter.Flush();
         string filePath = string.Format("{0}/{1}.{2}", directory, fileName, fileExtension);
 
         // https://msdn.microsoft.com/en-us/library/8bh11f1k.aspx
-        using (FileStream file = new FileStream(filePath, fileMode, fileAccess))
+        using (FileStream file = File.Open(filePath, fileMode, fileAccess, fileShare))
         {
             binaryWriter.Seek(0, SeekOrigin.Begin);
             binaryWriter.BaseStream.CopyTo(file);
