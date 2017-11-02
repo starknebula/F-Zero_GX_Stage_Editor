@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-using GameCube;
+using GameCube.Games.FZeroGX;
 
 
 namespace System.IO
@@ -11,7 +11,7 @@ namespace System.IO
     /// <summary>
     /// Defines BinaryReaderExtensions for F-Zero GX Stage Editor with Unity-specific structs
     /// </summary>
-    public static partial class BinaryReaderExtensions
+    public static partial class BinaryReaderWriterExtensions
     {
         public static Vector3 GetVector3Position(this BinaryReader reader)
         {
@@ -57,6 +57,14 @@ namespace System.IO
         {
             return new Vector3(
                 reader.GetFloat() * ((flipX) ? -1f : 1f),
+                reader.GetFloat(),
+                reader.GetFloat()
+                );
+        }
+        public static Vector3 GetVector3(this BinaryReader reader)
+        {
+            return new Vector3(
+                reader.GetFloat(),
                 reader.GetFloat(),
                 reader.GetFloat()
                 );

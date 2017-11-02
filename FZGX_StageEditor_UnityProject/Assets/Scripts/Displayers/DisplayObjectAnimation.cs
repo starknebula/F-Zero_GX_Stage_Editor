@@ -76,123 +76,123 @@ public class DisplayObjectAnimation : MonoBehaviour, IFZGXEditorStageEventReceiv
                 Handles.Label(position + offset * HandleUtility.GetHandleSize(position + offset), label);
     }
 
-    public static void PrintOutAnimationData()
-    {
-        // 6 = all addresses for animation
-        for (int address = 0; address < 6; address++)
-        {
-            // Print out animations
-            PrintLog.WriteTsvLineEndToBuffer(
-                "Object ID",
-                "Name",
-                "ID",
-                "Time",
-                "x",
-                "y",
-                "z"
-                );
+    //public static void PrintOutAnimationData()
+    //{
+    //    // 6 = all addresses for animation
+    //    for (int address = 0; address < 6; address++)
+    //    {
+    //        // Print out animations
+    //        PrintLog.WriteTsvLineEndToBuffer(
+    //            "Object ID",
+    //            "Name",
+    //            "ID",
+    //            "Time",
+    //            "x",
+    //            "y",
+    //            "z"
+    //            );
 
-            for (int i = 0; i < gxDataOther.obj.Length; i++)
-            {
-                for (int j = 0; j < gxDataOther.obj[i].animation.animationEntry.Length; j++)
-                {
-                    // SKIP NULL ENTRIES
-                    //if (gxDataOther.obj[i].animation.animationEntry[j] == null)
-                    //    return;
+    //        for (int i = 0; i < gxDataOther.obj.Length; i++)
+    //        {
+    //            for (int j = 0; j < gxDataOther.obj[i].animation.animationEntry.Length; j++)
+    //            {
+    //                // SKIP NULL ENTRIES
+    //                //if (gxDataOther.obj[i].animation.animationEntry[j] == null)
+    //                //    return;
 
-                    for (int k = 0; k < gxDataOther.obj[i].animation.animationEntry[j].Length; k++)
-                    {
-                        if (address == j)
-                        {
-                            if (gxDataOther.obj[i].animation.animationEntry[j].Length > 0)
-                            {
-                                PrintLog.WriteTsvLineEndToBuffer(
-                                    i.ToString(),
-                                    gxDataOther.obj[i].ObjectName,
-                                    gxDataOther.obj[i].animation.animationEntry[j][k].isLooping.ToString(),
-                                    gxDataOther.obj[i].animation.animationEntry[j][k].time.ToString(),
-                                    gxDataOther.obj[i].animation.animationEntry[j][k].vector.x.ToString(),
-                                    gxDataOther.obj[i].animation.animationEntry[j][k].vector.y.ToString(),
-                                    gxDataOther.obj[i].animation.animationEntry[j][k].vector.z.ToString()
-                                    );
-                            }
-                        }
-                    }
-                }
-            }
-            PrintLog.SaveStream(StageManager.currentStage.ToString() + (address + 1).ToString());
-        }
-    }
-    public static void PrintOutAnimationAddresses()
-    {
-        #region header
-        PrintLog.WriteTsvLineEndToBuffer(
-            "Object ID",
-            "Animation Address",
+    //                for (int k = 0; k < gxDataOther.obj[i].animation.animationEntry[j].Length; k++)
+    //                {
+    //                    if (address == j)
+    //                    {
+    //                        if (gxDataOther.obj[i].animation.animationEntry[j].Length > 0)
+    //                        {
+    //                            PrintLog.WriteTsvLineEndToBuffer(
+    //                                i.ToString(),
+    //                                gxDataOther.obj[i].ObjectName,
+    //                                gxDataOther.obj[i].animation.animationEntry[j][k].isLooping.ToString(),
+    //                                gxDataOther.obj[i].animation.animationEntry[j][k].time.ToString(),
+    //                                gxDataOther.obj[i].animation.animationEntry[j][k].vector.x.ToString(),
+    //                                gxDataOther.obj[i].animation.animationEntry[j][k].vector.y.ToString(),
+    //                                gxDataOther.obj[i].animation.animationEntry[j][k].vector.z.ToString()
+    //                                );
+    //                        }
+    //                    }
+    //                }
+    //            }
+    //        }
+    //        PrintLog.SaveStream(StageManager.currentStage.ToString() + (address + 1).ToString());
+    //    }
+    //}
+    //public static void PrintOutAnimationAddresses()
+    //{
+    //    #region header
+    //    PrintLog.WriteTsvLineEndToBuffer(
+    //        "Object ID",
+    //        "Animation Address",
 
-            "1 address",
-            "1 count",
+    //        "1 address",
+    //        "1 count",
 
-            "2 address",
-            "2 count",
+    //        "2 address",
+    //        "2 count",
 
-            "3 address",
-            "3 count",
+    //        "3 address",
+    //        "3 count",
 
-            "4 address",
-            "4 count",
+    //        "4 address",
+    //        "4 count",
 
-            "5 address",
-            "5 count",
+    //        "5 address",
+    //        "5 count",
 
-            "6 address",
-            "6 count"
-            );
-        #endregion
+    //        "6 address",
+    //        "6 count"
+    //        );
+    //    #endregion
 
-        for (int i = 0; i < gxDataOther.obj.Length; i++)
-        {
-            PrintLog.WriteToBuffer(i.ToString() + "\t");
-            PrintLog.WriteToBuffer(gxDataOther.obj[i].animationAddress.ToString() + "\t");
+    //    for (int i = 0; i < gxDataOther.obj.Length; i++)
+    //    {
+    //        PrintLog.WriteToBuffer(i.ToString() + "\t");
+    //        PrintLog.WriteToBuffer(gxDataOther.obj[i].animationAddress.ToString() + "\t");
 
-            for (int j = 0; j < gxDataOther.obj[i].animation.pointers.Length; j++)
-            {
-                PrintLog.WriteTsvLineToBuffer(
-                    gxDataOther.obj[i].animation.pointers[j].address.ToString(),
-                    gxDataOther.obj[i].animation.pointers[j].count.ToString()
-                    );
-            }
-            PrintLog.WriteToBuffer("\n");
-        }
-        PrintLog.SaveStream(StageManager.currentStage.ToString());
-    }
-    public static void PrintOutAnimationInfo()
-    {
-        PrintLog.WriteTsvLineEndToBuffer(
-            "Object #",
-            "Name",
-            "Dat 0x00",
-            "Dat 0x04",
-            "Layer",
-            "1", "2", "3", "4", "5", "6"
-            );
+    //        for (int j = 0; j < gxDataOther.obj[i].animation.pointers.Length; j++)
+    //        {
+    //            PrintLog.WriteTsvLineToBuffer(
+    //                gxDataOther.obj[i].animation.pointers[j].address.ToString(),
+    //                gxDataOther.obj[i].animation.pointers[j].count.ToString()
+    //                );
+    //        }
+    //        PrintLog.WriteToBuffer("\n");
+    //    }
+    //    PrintLog.SaveStream(StageManager.currentStage.ToString());
+    //}
+    //public static void PrintOutAnimationInfo()
+    //{
+    //    PrintLog.WriteTsvLineEndToBuffer(
+    //        "Object #",
+    //        "Name",
+    //        "Dat 0x00",
+    //        "Dat 0x04",
+    //        "Layer",
+    //        "1", "2", "3", "4", "5", "6"
+    //        );
 
-        for (int i = 0; i < gxDataOther.obj.Length; i++)
-        {
-            PrintLog.WriteTsvLineEndToBuffer(
-                i.ToString(),
-                gxDataOther.obj[i].ObjectName,
-                gxDataOther.obj[i].animation.dat_0x00.ToString(),
-                gxDataOther.obj[i].animation.dat_0x04.ToString(),
-                BitToLayerUtility.GetLayer(gxDataOther.obj[i].animation.layer_16bit >> 16).ToString(),
-                (gxDataOther.obj[i].animation.pointers[0].count > 0 ? "x" : ""),
-                (gxDataOther.obj[i].animation.pointers[1].count > 0 ? "x" : ""),
-                (gxDataOther.obj[i].animation.pointers[2].count > 0 ? "x" : ""),
-                (gxDataOther.obj[i].animation.pointers[3].count > 0 ? "x" : ""),
-                (gxDataOther.obj[i].animation.pointers[4].count > 0 ? "x" : ""),
-                (gxDataOther.obj[i].animation.pointers[5].count > 0 ? "x" : "")
-                );
-        }
-        PrintLog.SaveStream(StageManager.currentStage.ToString());
-    }
+    //    for (int i = 0; i < gxDataOther.obj.Length; i++)
+    //    {
+    //        PrintLog.WriteTsvLineEndToBuffer(
+    //            i.ToString(),
+    //            gxDataOther.obj[i].ObjectName,
+    //            gxDataOther.obj[i].animation.dat_0x00.ToString(),
+    //            gxDataOther.obj[i].animation.dat_0x04.ToString(),
+    //            BitToLayerUtility.GetLayer(gxDataOther.obj[i].animation.layer_16bit >> 16).ToString(),
+    //            (gxDataOther.obj[i].animation.pointers[0].count > 0 ? "x" : ""),
+    //            (gxDataOther.obj[i].animation.pointers[1].count > 0 ? "x" : ""),
+    //            (gxDataOther.obj[i].animation.pointers[2].count > 0 ? "x" : ""),
+    //            (gxDataOther.obj[i].animation.pointers[3].count > 0 ? "x" : ""),
+    //            (gxDataOther.obj[i].animation.pointers[4].count > 0 ? "x" : ""),
+    //            (gxDataOther.obj[i].animation.pointers[5].count > 0 ? "x" : "")
+    //            );
+    //    }
+    //    PrintLog.SaveStream(StageManager.currentStage.ToString());
+    //}
 }

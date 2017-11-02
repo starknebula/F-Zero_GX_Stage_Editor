@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using GameCube.Games.FZeroGX.ImportExport;
-using GameCube.FileStructures;
 
 namespace UnityEditor
 {

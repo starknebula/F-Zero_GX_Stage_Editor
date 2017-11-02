@@ -7,6 +7,7 @@ namespace GameCube
     /// </summary>
     public abstract class SerializableMember
     {
+        // get rid of this
         public abstract uint size { get; }
 
         public abstract byte[] Serialize();
