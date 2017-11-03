@@ -16,16 +16,22 @@ namespace System.IO
         {
             return value.Replace("\\", "/");
         }
+
         /// <summary>
         /// Returns the path starting after Assets/
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static string UnityAssetPath(string path)
+        public static string TrimDirectoryToAssets(string path)
         {
             return Regex.Match(path, "(?<=Assets/).*$").Value;
         }
+
+        //
+        public static string TrimDirectoryToResources(string path)
+        {
+            return Regex.Match(path, "(?<=Resources/).*$").Value;
+        }
         public static string AssetsPath => Application.dataPath;
-        //public static string ProjectPath => Regex.Match(Application.dataPath, "(?=Assets/).*$").Value;
     }
 }

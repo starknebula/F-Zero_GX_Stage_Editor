@@ -10,7 +10,7 @@ using UnityEngine;
 using UnityEditor;
 
 using GameCube.LibGxTexture;
-
+using System.Text.RegularExpressions;
 
 namespace GameCube.Games.FZeroGX.FileStructures
 {
@@ -22,7 +22,6 @@ namespace GameCube.Games.FZeroGX.FileStructures
         private TEXDescriptor[] descriptorArray;
         [SerializeField]
         private Texture2D[] textures;
-
 
         public void Serialize(BinaryWriter writer)
         {
@@ -38,18 +37,21 @@ namespace GameCube.Games.FZeroGX.FileStructures
                 descriptorArray[i].Deserialize(reader);
             }
 
+            // TEMP - SHOULD REGEX EXTENSION(S), ',LZ' PSEUDO EXTENSION(S)
             string filePath = AssetDatabase.GetAssetPath(this.GetInstanceID());
-            string fullDirectory = Path.Combine(Path.GetDirectoryName(filePath), Path.GetFileNameWithoutExtension(filePath));
+            //string filePathWithoutExtensions = Regex.Match(filePath, "/.+?(?=,)/").Value;
+            //filePathWithoutExtensions = Regex.Match(filePath, "/.+?(?=/.)/").Value;
+            string directory = Path.Combine(Path.GetDirectoryName(filePath), Path.GetFileNameWithoutExtension(filePath)).PathToUnityPath();
 
-            if (!Directory.Exists(fullDirectory))
+            if (!Directory.Exists(directory))
                 AssetDatabase.CreateFolder(Path.GetDirectoryName(filePath), Path.GetFileNameWithoutExtension(filePath));
 
             textures = new Texture2D[numDescriptors];
             for (int i = 0; i < numDescriptors; i++)
-                textures[i] = ReadTexture(reader, descriptorArray[i], fullDirectory, i.ToString());
+                textures[i] = ReadTexture(reader, descriptorArray[i], directory, i.ToString());
         }
 
-        public Texture2D ReadTexture(BinaryReader reader, TEXDescriptor desc, string directory, string fileName)
+        public Texture2D ReadTexture(BinaryReader reader, TEXDescriptor desc, string directory, string number)
         {
             // Verify if index is valid (some entries can be nulled out)
             // We check for 0 specifically because garbage can be store in the
@@ -82,18 +84,21 @@ namespace GameCube.Games.FZeroGX.FileStructures
                     }
                 }
 
-                string filePathFull = string.Format("{0}/{1}.png", directory, fileName);
-                string unityPath = FilePathUtility.UnityAssetPath(filePathFull);
-                //AssetDatabase.CreateAsset(texture, filePathFull);
+                // TEMP - SHOULD REGEX ,lz
+                string fileName = Path.GetFileNameWithoutExtension(directory).PathToUnityPath();
+
+                string assetPath = string.Format("{0}/tex_tpl_{3}_{1}_{2}.png", directory, number, (GxTextureFormat)desc.format, fileName).PathToUnityPath();
+                //string assetPath = string.Format("{0}/{1}.png", directory, fileName).PathToUnityPath();
                 byte[] imageBytes = texture.EncodeToPNG();
-                using (BinaryWriter writer = new BinaryWriter(File.Create(filePathFull, imageBytes.Length)))
+                using (BinaryWriter writer = new BinaryWriter(File.Create(assetPath, imageBytes.Length)))
                 {
                     writer.Write(imageBytes);
                 }
 
-                Debug.LogFormat("Saved {0}.png at {1}", fileName, filePathFull);
-                AssetDatabase.ImportAsset(unityPath, ImportAssetOptions.ForceUpdate);
-                return (Texture2D)AssetDatabase.LoadAssetAtPath(FilePathUtility.UnityAssetPath(filePathFull), typeof(Texture2D));
+                AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
+                AssetDatabase.Refresh(ImportAssetOptions.Default);
+                Texture2D tex = (Texture2D)AssetDatabase.LoadAssetAtPath(assetPath, typeof(Texture2D));
+                return tex;
             }
             catch
             {
