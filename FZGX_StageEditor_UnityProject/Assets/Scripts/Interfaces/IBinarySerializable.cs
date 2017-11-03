@@ -4,13 +4,13 @@
 
 namespace System.IO
 {
-    public interface IBinarySerializable
+    public interface IBinarySerializableDepricated
     {
         byte[] Serialize();
         void Deserialize(BinaryReader reader, long address);
     }
 
-    public interface IBinarySerializable2
+    public interface IBinarySerializable
     {
         void Serialize(BinaryWriter writer);
         void Deserialize(BinaryReader reader);

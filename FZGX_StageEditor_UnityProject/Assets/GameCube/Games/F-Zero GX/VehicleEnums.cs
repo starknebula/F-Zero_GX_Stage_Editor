@@ -1,4 +1,4 @@
-﻿namespace GameCube.Games.FZeroGX.Machines
+﻿namespace GameCube.Games.FZeroGX
 {
     public enum VehicleName
     {
@@ -78,8 +78,7 @@
         DrClash,
         BlackShadow,
         DonGenie,
-        DigiBoy = 32, // Nickname
-        TerryGetter = 32, // Name
+        DigiBoy,
         DaiSanGen,
         Spade,
         DaiGoroh,

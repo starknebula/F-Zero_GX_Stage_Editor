@@ -13,6 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fileMode: 2
   fileAccess: 2
+  fileShare: 0
   debugSavePath: 1
   sourceExtension: tpl
   sourcePath: 

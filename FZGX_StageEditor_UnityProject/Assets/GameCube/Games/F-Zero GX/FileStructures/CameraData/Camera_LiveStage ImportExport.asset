@@ -9,10 +9,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ba9192d511e1784dbabbe744226492c, type: 3}
-  m_Name: CAM_LiveStage_ImportExport
+  m_Name: Camera_LiveStage ImportExport
   m_EditorClassIdentifier: 
   fileMode: 2
   fileAccess: 2
+  fileShare: 0
   debugSavePath: 1
   sourceExtension: bin
   sourcePath: Resources/FZGX_EN/cam

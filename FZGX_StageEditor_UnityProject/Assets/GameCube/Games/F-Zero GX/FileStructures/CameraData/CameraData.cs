@@ -11,7 +11,7 @@ using UnityEngine;
 namespace GameCube.Games.FZeroGX.FileStructures
 {
     [Serializable]
-    public class LiveCamStage : IBinarySerializable2
+    public class LiveCamStage : IBinarySerializable
     {
         public List<CameraPan> cameraPans;
 
@@ -34,7 +34,7 @@ namespace GameCube.Games.FZeroGX.FileStructures
     }
 
     [Serializable]
-    public class CameraPan : IBinarySerializable2
+    public class CameraPan : IBinarySerializable
     {
         public CameraParams @params;
         public CameraInterpolation interpolateFrom;
@@ -59,7 +59,7 @@ namespace GameCube.Games.FZeroGX.FileStructures
     }
 
     [Serializable]
-    public class CameraParams : IBinarySerializable2
+    public class CameraParams : IBinarySerializable
     {
         public uint frameDuration;
         public float lerpSpeed;
@@ -80,7 +80,7 @@ namespace GameCube.Games.FZeroGX.FileStructures
     }
 
     [Serializable]
-    public class CameraInterpolation : IBinarySerializable2
+    public class CameraInterpolation : IBinarySerializable
     {
         public Vector3 position;
         public Vector3 rotation;

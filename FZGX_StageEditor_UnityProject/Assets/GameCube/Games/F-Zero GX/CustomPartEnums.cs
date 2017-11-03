@@ -1,4 +1,4 @@
-﻿namespace GameCube.Games.FZeroGX.Machines
+﻿namespace GameCube.Games.FZeroGX
 {
     public enum CustomBodyPartName
     {

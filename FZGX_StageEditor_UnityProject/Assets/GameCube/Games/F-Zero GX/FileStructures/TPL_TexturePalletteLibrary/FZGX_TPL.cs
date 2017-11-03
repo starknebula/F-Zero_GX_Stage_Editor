@@ -18,7 +18,7 @@ namespace GameCube.Games.FZeroGX.FileStructures
     /// F-Zero GX modified version of GameCube TPL (Texture Palette)
     /// </summary>
     [System.Serializable]
-    public class TPL : IBinarySerializable
+    public class TPL : IBinarySerializableDepricated
     {
         #region CONSTRUCTORS
         public TPL() { }
@@ -156,7 +156,7 @@ namespace GameCube.Games.FZeroGX.FileStructures
         /// Is byte aligned to 32B (GC FIFO)
         /// </summary>
         [System.Serializable]
-        public class TEXDescriptor : IBinarySerializable
+        public class TEXDescriptor : IBinarySerializableDepricated
         {
             #region CONSTRUCTORS
             public TEXDescriptor() { }

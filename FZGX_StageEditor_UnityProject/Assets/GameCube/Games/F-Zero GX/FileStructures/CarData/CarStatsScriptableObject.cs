@@ -11,7 +11,7 @@ namespace GameCube.Games.FZeroGX.FileStructures
     // https://github.com/yoshifan/fzerogx-docs/blob/master/addresses/base_machine_stat_blocks.md
 
     [CreateAssetMenu(fileName = "CarData", menuName = "FZGX ScriptableObject/CarData")]
-    public class CarStatsScriptableObject : ScriptableObject, IBinarySerializable2
+    public class CarStatsScriptableObject : ScriptableObject, IBinarySerializable
     {
         public float customPartWeight;
         public float machineWeight;

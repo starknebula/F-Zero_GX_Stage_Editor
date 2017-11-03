@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
-using GameCube;
 using GameCube.Games.FZeroGX;
 
 [CustomEditor(typeof(StageManager))]
