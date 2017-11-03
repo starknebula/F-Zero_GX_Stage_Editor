@@ -2,15 +2,17 @@
 // Copyright (c) 2017 Raphael Tetreault
 // Last updated 
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 using System;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 using GameCube.LibGxTexture;
-using System.Text.RegularExpressions;
 
 namespace GameCube.Games.FZeroGX.FileStructures
 {
@@ -23,6 +25,8 @@ namespace GameCube.Games.FZeroGX.FileStructures
         [SerializeField]
         private Texture2D[] textures;
 
+        #region EDITOR METHODS
+        #if UNITY_EDITOR
         public void Serialize(BinaryWriter writer)
         {
             throw new NotImplementedException();
@@ -37,21 +41,19 @@ namespace GameCube.Games.FZeroGX.FileStructures
                 descriptorArray[i].Deserialize(reader);
             }
 
-            // TEMP - SHOULD REGEX EXTENSION(S), ',LZ' PSEUDO EXTENSION(S)
             string filePath = AssetDatabase.GetAssetPath(this.GetInstanceID());
-            //string filePathWithoutExtensions = Regex.Match(filePath, "/.+?(?=,)/").Value;
-            //filePathWithoutExtensions = Regex.Match(filePath, "/.+?(?=/.)/").Value;
-            string directory = Path.Combine(Path.GetDirectoryName(filePath), Path.GetFileNameWithoutExtension(filePath)).PathToUnityPath();
+            string destFilePath = Path.Combine(Path.GetDirectoryName(filePath), Path.GetFileNameWithoutExtension(filePath)).PathToUnityPath();
+            string fileName = Path.GetFileNameWithoutExtension(filePath);
 
-            if (!Directory.Exists(directory))
+            if (!Directory.Exists(destFilePath))
                 AssetDatabase.CreateFolder(Path.GetDirectoryName(filePath), Path.GetFileNameWithoutExtension(filePath));
 
             textures = new Texture2D[numDescriptors];
             for (int i = 0; i < numDescriptors; i++)
-                textures[i] = ReadTexture(reader, descriptorArray[i], directory, i.ToString());
+                textures[i] = ReadTexture(reader, descriptorArray[i], destFilePath, string.Format("{0}_{1}", i, fileName));
         }
 
-        public Texture2D ReadTexture(BinaryReader reader, TEXDescriptor desc, string directory, string number)
+        public Texture2D ReadTexture(BinaryReader reader, TEXDescriptor desc, string saveFilePath, string textureName)
         {
             // Verify if index is valid (some entries can be nulled out)
             // We check for 0 specifically because garbage can be store in the
@@ -84,10 +86,7 @@ namespace GameCube.Games.FZeroGX.FileStructures
                     }
                 }
 
-                // TEMP - SHOULD REGEX ,lz
-                string fileName = Path.GetFileNameWithoutExtension(directory).PathToUnityPath();
-
-                string assetPath = string.Format("{0}/tex_tpl_{3}_{1}_{2}.png", directory, number, (GxTextureFormat)desc.format, fileName).PathToUnityPath();
+                string assetPath = string.Format("{0}/tex_tpl_{3}_{1}_{2}.png", saveFilePath, textureName, (GxTextureFormat)desc.format).PathToUnityPath();
                 //string assetPath = string.Format("{0}/{1}.png", directory, fileName).PathToUnityPath();
                 byte[] imageBytes = texture.EncodeToPNG();
                 using (BinaryWriter writer = new BinaryWriter(File.Create(assetPath, imageBytes.Length)))
@@ -106,10 +105,12 @@ namespace GameCube.Games.FZeroGX.FileStructures
                 return null;
             }
         }
-        public bool WriteTexture(BinaryWriter writer, int index, Texture2D texture)
+        public void WriteTexture(BinaryWriter writer, Texture2D texture, GxTextureFormat format)
         {
             throw new System.NotImplementedException();
         }
+        #endif
+        #endregion
 
         [Serializable]
         public class TEXDescriptor : IBinarySerializable
@@ -123,6 +124,8 @@ namespace GameCube.Games.FZeroGX.FileStructures
             public ushort powerOf;
             public ushort endianness; // 1234 instead of 3412
 
+            #region EDITOR METHODS
+            #if UNITY_EDITOR
             public void Serialize(BinaryWriter writer)
             {
                 throw new System.NotImplementedException();
@@ -138,6 +141,10 @@ namespace GameCube.Games.FZeroGX.FileStructures
                 powerOf = reader.GetUInt16();
                 endianness = reader.GetUInt16();
             }
+            #endif
+            #endregion
         }
+
+
     }
 }
