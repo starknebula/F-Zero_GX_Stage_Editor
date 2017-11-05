@@ -33,8 +33,12 @@ namespace GameCube.Games.FZeroGX.FileStructures
             string fileName = string.Format(stageTplFormat, (1).ToString("00"));
             using (BinaryReader reader = OpenBinaryReaderWithFile(fileName))
             {
-                // TEMP - SHOULD REGEX EXTENSION(S), ',LZ' PSEUDO EXTENSION(S)
+                // Strips the extension
                 fileName = Path.GetFileNameWithoutExtension(fileName);
+                // Strips the pseudo extension (,lz)
+                int indexOfComma = fileName.LastIndexOf(',');
+                fileName = fileName.Substring(0, fileName.Length - indexOfComma + 1);
+
                 CreateScriptableObjectFromBinaryStream<TexturePaletteLibrary_ScriptableObject>(fileName, reader);
             }
 

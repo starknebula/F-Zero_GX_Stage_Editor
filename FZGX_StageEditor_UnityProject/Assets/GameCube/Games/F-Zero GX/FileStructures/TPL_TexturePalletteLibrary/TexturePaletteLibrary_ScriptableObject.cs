@@ -16,17 +16,23 @@ using GameCube.LibGxTexture;
 
 namespace GameCube.Games.FZeroGX.FileStructures
 {
+    internal partial class FZeroGXImportExportMenuConstants
+    {
+        internal const string FzgxImportExportMenuTab = "FZGX ImportExport";
+        internal const string TplFileName = "TexturePaletteLibrary TextureDescriptor";
+        internal const string TplMenuName = FzgxImportExportMenuTab + "/" + TplFileName;
+    }
+
+    [CreateAssetMenu(fileName = FZeroGXImportExportMenuConstants.TplFileName, menuName = FZeroGXImportExportMenuConstants.TplMenuName)]
     public class TexturePaletteLibrary_ScriptableObject : ScriptableObject, IBinarySerializable
     {
-        [SerializeField]
-        private uint numDescriptors;
-        [SerializeField]
-        private TEXDescriptor[] descriptorArray;
-        [SerializeField]
-        private Texture2D[] textures;
+        // Values public for Editor Script
+        public uint numDescriptors;
+        public TEXDescriptor[] descriptorArray;
+
 
         #region EDITOR METHODS
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         public void Serialize(BinaryWriter writer)
         {
             throw new NotImplementedException();
@@ -48,9 +54,8 @@ namespace GameCube.Games.FZeroGX.FileStructures
             if (!Directory.Exists(destFilePath))
                 AssetDatabase.CreateFolder(Path.GetDirectoryName(filePath), Path.GetFileNameWithoutExtension(filePath));
 
-            textures = new Texture2D[numDescriptors];
             for (int i = 0; i < numDescriptors; i++)
-                textures[i] = ReadTexture(reader, descriptorArray[i], destFilePath, string.Format("{0}_{1}", i, fileName));
+                descriptorArray[i].texture = ReadTexture(reader, descriptorArray[i], destFilePath, string.Format("{0}_idx{1}", fileName, i));
         }
 
         public Texture2D ReadTexture(BinaryReader reader, TEXDescriptor desc, string saveFilePath, string textureName)
@@ -58,6 +63,7 @@ namespace GameCube.Games.FZeroGX.FileStructures
             // Verify if index is valid (some entries can be nulled out)
             // We check for 0 specifically because garbage can be store in the
             // first few entries of the file.
+            // TPL can have null entries so this is actually correct to the format
             if (desc.isNullEntry != 0)
                 return null;
 
@@ -86,9 +92,10 @@ namespace GameCube.Games.FZeroGX.FileStructures
                     }
                 }
 
-                string assetPath = string.Format("{0}/tex_tpl_{3}_{1}_{2}.png", saveFilePath, textureName, (GxTextureFormat)desc.format).PathToUnityPath();
-                //string assetPath = string.Format("{0}/{1}.png", directory, fileName).PathToUnityPath();
+                string assetPath = string.Format("{0}/tex_tpl_{1}_fmt{2}_{3}.png", saveFilePath, textureName, desc.format.ToString("X2"), (GxTextureFormat)desc.format).PathToUnityPath();
                 byte[] imageBytes = texture.EncodeToPNG();
+                DestroyImmediate(texture);
+
                 using (BinaryWriter writer = new BinaryWriter(File.Create(assetPath, imageBytes.Length)))
                 {
                     writer.Write(imageBytes);
@@ -101,15 +108,22 @@ namespace GameCube.Games.FZeroGX.FileStructures
             }
             catch
             {
-                Debug.LogErrorFormat("GxTextureFormatCodec.GetCodec() failed to find format [{0}]", desc.format.ToString("X"));
+                Debug.LogErrorFormat("GxTextureFormatCodec.GetCodec() failed to find format [0x{0}]", desc.format.ToString("X2"));
                 return null;
             }
         }
         public void WriteTexture(BinaryWriter writer, Texture2D texture, GxTextureFormat format)
         {
+            // Decide whether to use name as format or link each texture to a SO
+            // Name only is nice because it means no linkage with SO
+            // SO is nice because there need not be copies of textures to export
+
+            // The only data needed from TEXDescriptor
+            // - format
+
             throw new System.NotImplementedException();
         }
-        #endif
+#endif
         #endregion
 
         [Serializable]
@@ -124,8 +138,10 @@ namespace GameCube.Games.FZeroGX.FileStructures
             public ushort powerOf;
             public ushort endianness; // 1234 instead of 3412
 
+            public Texture2D texture;
+
             #region EDITOR METHODS
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             public void Serialize(BinaryWriter writer)
             {
                 throw new System.NotImplementedException();
@@ -141,7 +157,7 @@ namespace GameCube.Games.FZeroGX.FileStructures
                 powerOf = reader.GetUInt16();
                 endianness = reader.GetUInt16();
             }
-            #endif
+#endif
             #endregion
         }
 
