@@ -27,6 +27,7 @@ namespace GameCube.Games.FZeroGX.FileStructures
     public class TexturePaletteLibrary_ScriptableObject : ScriptableObject, IBinarySerializable
     {
         // Values public for Editor Script
+        [HideInInspector]
         public uint numDescriptors;
         public TEXDescriptor[] descriptorArray;
 
@@ -92,7 +93,7 @@ namespace GameCube.Games.FZeroGX.FileStructures
                     }
                 }
 
-                string assetPath = string.Format("{0}/tex_tpl_{1}_fmt{2}_{3}.png", saveFilePath, textureName, desc.format.ToString("X2"), (GxTextureFormat)desc.format).PathToUnityPath();
+                string assetPath = string.Format("{0}/tex_{1}.png", saveFilePath, textureName).PathToUnityPath();
                 byte[] imageBytes = texture.EncodeToPNG();
                 DestroyImmediate(texture);
 
@@ -156,6 +157,12 @@ namespace GameCube.Games.FZeroGX.FileStructures
                 height = reader.GetUInt16();
                 powerOf = reader.GetUInt16();
                 endianness = reader.GetUInt16();
+
+                // Make ScriptableObject cleaner
+                // Make 0x00 I4 appear as empty
+                // Prevent garbage data from being mis-interpreted
+                if (isNullEntry != 0)
+                    format = 0xFF;
             }
 #endif
             #endregion
