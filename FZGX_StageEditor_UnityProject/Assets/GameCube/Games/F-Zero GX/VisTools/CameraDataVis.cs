@@ -13,14 +13,12 @@ public class CameraDataVis : MonoBehaviour
     [SerializeField]
     private CameraScriptableObject cam;
 
-    //[SerializeField]
-    //private float radiusStartEnd, radiusLerpPoint;
-    //[SerializeField]
-    //private float lineLength;
-    //[SerializeField]
-    //Vector3 addedRotation;
-    //[SerializeField]
-    //int probe;
+    [SerializeField]
+    private Vector3 handedness;
+    [SerializeField]
+    private Space spaceCoord = Space.Self;
+    [SerializeField]
+    private bool invX, invY, invZ;
 
     public void PlayCameraAnimation()
     {
@@ -30,27 +28,6 @@ public class CameraDataVis : MonoBehaviour
         StartCoroutine(PlayAnim());
     }
 
-    //void OnDrawGizmos()
-    //{
-    //    int index = 0;
-    //    foreach (CameraPan pan in cam.CameraData.cameraPans)
-    //    {
-    //        if (index == probe)
-    //        {
-    //            Vector3 lookNormal = -(pan.interpolateTo.position - Vector3.zero).normalized;
-    //            Quaternion rotDif = Quaternion.FromToRotation(Vector3.forward, lookNormal);
-
-    //            Gizmos.color = Color.white;
-    //            Gizmos.DrawLine(Vector3.zero, Vector3.forward * 3);
-    //            Gizmos.color = Color.red;
-    //            Gizmos.DrawLine(Vector3.zero, rotDif * Vector3.forward * 2);
-    //            Gizmos.color = Color.green;
-    //            Gizmos.DrawLine(Vector3.zero, lookNormal);
-
-    //        }
-    //        index++;
-    //    }
-    //}
 
 
     private IEnumerator PlayAnim()
@@ -67,46 +44,56 @@ public class CameraDataVis : MonoBehaviour
         {
             float lerpSpeed = pan.@params.lerpSpeed;
             int frameDuration = (int)pan.@params.frameDuration;
-
-            // Defines the forward axis
-            // This is solved with Quaternion.FromToRotation which converts the rotation from froward (+z) to this
-            // Arbitrary axis as forward/back (depth)
-            Vector3 cameraDepthAxis = (pan.interpolateFrom.position - pan.interpolateTo.position).normalized;
-            Quaternion worldToCameraRotation = Quaternion.FromToRotation(Vector3.forward, cameraDepthAxis);
-            Quaternion cameraToWorldRotation = Quaternion.FromToRotation(cameraDepthAxis, Vector3.forward);
-
-            Matrix4x4 cameraMatrix = Matrix4x4.LookAt(pan.interpolateFrom.position, pan.interpolateTo.position, worldToCameraRotation * Vector3.up);
-
-            for (uint i = 0; i < frameDuration; i++)
+         
+            for (uint i = 0; i < frameDuration; ++i)
             {
                 float percent = (float)i / frameDuration;
 
+                // LERP FOV
                 camera.fieldOfView = Mathf.Lerp(pan.interpolateFrom.fov, pan.interpolateTo.fov, percent);
+                // LERP POS
                 camera.transform.position = Vector3.Lerp(pan.interpolateFrom.position, pan.interpolateTo.position, percent);
+                Vector3 from = pan.interpolateFrom.rotation;
+                from = SwapCoorSystem(from);
+                Vector3 to = pan.interpolateTo.rotation;
+                to = SwapCoorSystem(to);
+                Quaternion qFrom = Quaternion.Euler(from);
+                Quaternion qTo = Quaternion.Euler(to);
+                Quaternion rotation = Quaternion.Slerp(qFrom, qTo, percent);
 
-                //Quaternion rotationLerp = Quaternion.Slerp(
-                //    Quaternion.Euler(pan.interpolateFrom.rotation),
-                //    Quaternion.Euler(pan.interpolateTo.rotation),
-                //    percent / 5f);
-                Vector3 vRotationLerp = Vector3.Slerp(pan.interpolateFrom.rotation, pan.interpolateTo.rotation, percent);
+                // rotation
+                //var flippedRotation = new Vector3(from.x, -from.y, -from.z);
+                //var vFrom = SwapCoorSystem(from);
+                //var qx = Quaternion.AngleAxis(vFrom.x, Vector3.right);
+                //var qy = Quaternion.AngleAxis(vFrom.y, Vector3.up);
+                //var qz = Quaternion.AngleAxis(vFrom.z, Vector3.forward);
+                //var qFrom = qz * qy * qx; // exact order!
 
-                // Appears to be somewhat the appropriate way
-                //camera.transform.rotation = Quaternion.FromToRotation(Vector3.forward, Quaternion.Euler(vRotationLerp) * cameraForward);
+                //var vTo = SwapCoorSystem(to);
+                //var qxt = Quaternion.AngleAxis(vTo.x, Vector3.right);
+                //var qyt = Quaternion.AngleAxis(vTo.y, Vector3.up);
+                //var qzt = Quaternion.AngleAxis(vTo.z, Vector3.forward);
+                //var qTo = qz * qy * qx; // exact order!
 
-                // Works WELL for SOME angles (low rotation?)
-                // The thought was convert from our space into theirs (new z/depth), then back
-                //camera.transform.rotation = Quaternion.FromToRotation(Quaternion.Euler(vRotationLerp) * cameraForward, Vector3.forward);
+                //Quaternion rotation = Quaternion.Slerp(qFrom, qTo, percent);
 
-                // From camera (GX) space to world (Unity)
-                camera.worldToCameraMatrix = cameraMatrix * transform.worldToLocalMatrix;
-                camera.transform.rotation = Quaternion.Euler(vRotationLerp);
+                camera.transform.rotation = rotation;
+                camera.transform.Rotate(handedness, spaceCoord); //Swap "handedness" quaternion from gyro.
+
+
 
                 yield return new WaitForEndOfFrame();
             }
 
             iteration++;
         }
+    }
 
-
+    private Vector3 SwapCoorSystem(Vector3 raw)
+    {
+        float x = raw.y * (invX ? -1f : 1f);
+        float y = raw.z * (invY ? -1f : 1f);
+        float z = raw.x * (invZ ? -1f : 1f);
+        return new Vector3(x, y, z);
     }
 }
