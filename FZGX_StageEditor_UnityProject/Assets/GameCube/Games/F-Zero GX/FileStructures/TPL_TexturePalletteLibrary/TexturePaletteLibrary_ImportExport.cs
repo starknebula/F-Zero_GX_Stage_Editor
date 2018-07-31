@@ -39,7 +39,7 @@ namespace GameCube.Games.FZeroGX.FileStructures
                 int indexOfComma = fileName.LastIndexOf(',');
                 fileName = fileName.Substring(0, fileName.Length - indexOfComma + 1);
 
-                CreateScriptableObjectFromBinaryStream<TexturePaletteLibrary_ScriptableObject>(fileName, reader);
+                CreateSobjFromBinaryStream<TexturePaletteLibrary_ScriptableObject>(fileName, reader);
             }
 
 

@@ -21,12 +21,13 @@ namespace GameCube.Games.FZeroGX.IO
         private readonly int numBoosterParts = Enum.GetNames(typeof(CustomBoosterPartName)).Length;
 
         private const long MachinePtr = 0x0000;
-        private const long CustomPartsPtr = 0x1F08;
+        private const long CustomPartsPtr = 0x1F04;
+        private const string IndexFormat = "00";
 
         [SerializeField]
         private string fileName = "cardata,lz";
         [SerializeField]
-        private CarDataScriptableObject exportData;
+        private CarDataSobj exportData;
 
         public override string ImportMessage => "CarData imported!";
         public override string ExportMessage => "CarData exported!";
@@ -38,14 +39,18 @@ namespace GameCube.Games.FZeroGX.IO
             BinaryReaderWriterExtensions.PushEndianess(true);
             using (BinaryReader reader = OpenBinaryReaderWithFile(fileName))
             {
-                CarDataScriptableObject container = CreateScriptableObject<CarDataScriptableObject>(fileName);
+                CarDataSobj container = CreateScriptableObject<CarDataSobj>(this.fileName);
                 exportData = container;
+                string assetName = string.Empty;
+                const string title = "Importing Vehicle Assets";
+                float total = numVehicles + numBodyParts + numCockpitParts + numBoosterParts - 1;
+                float offset = 0;
 
                 // MACHINES
                 reader.BaseStream.Seek(MachinePtr, SeekOrigin.Begin);
                 for (int i = 0; i < numVehicles; i++)
                 {
-                    int displayIndex = i+1;
+                    int displayIndex = i + 1;
 
                     // AX Machines
                     if (displayIndex > 31)
@@ -54,30 +59,50 @@ namespace GameCube.Games.FZeroGX.IO
                     else if (displayIndex == 31)
                         displayIndex = 0;
 
-                    string fileName = string.Format("cardata_machine_{0}_{1}", (displayIndex).ToString(), (VehicleName)displayIndex);
-                    container.CarStats.Add(CreateScriptableObjectFromBinaryStream<CarStatsScriptableObject>(fileName, reader));
+                    assetName = string.Format("cardata_machine_{0}_{1}", FormatIndex(displayIndex), (VehicleName)displayIndex);
+                    container.CarStats.Add(CreateSobjFromBinaryStream<CarStatsSobj>(assetName, reader));
+                    var progress = (offset + i) / total;
+                    EditorUtility.DisplayProgressBar(title, assetName, progress);
                 }
+                offset += numVehicles;
 
                 // CUSTOM PARTS
                 reader.BaseStream.Seek(CustomPartsPtr, SeekOrigin.Begin);
                 for (int i = 0; i < numBodyParts; i++)
                 {
-                    string fileName = string.Format("cardata_body_{0}_{1}", (i+1).ToString(), (CustomBodyPartName)i);
-                    container.CustomPartStats.Add(CreateScriptableObjectFromBinaryStream<CarStatsScriptableObject>(fileName, reader));
+                    assetName = string.Format("cardata_body_{0}_{1}", FormatIndex(i + 1), (CustomBodyPartName)i);
+                    container.CustomPartStats.Add(CreateSobjFromBinaryStream<CarStatsSobj>(assetName, reader));
+                    var progress = (offset + i) / total;
+                    EditorUtility.DisplayProgressBar(title, assetName, progress);
                 }
+                offset += numBodyParts;
+
                 for (int i = 0; i < numCockpitParts; i++)
                 {
-                    string fileName = string.Format("cardata_cockpit_{0}_{1}", (i + 1).ToString(), (CustomCockpitPartName)i);
-                    container.CustomPartStats.Add(CreateScriptableObjectFromBinaryStream<CarStatsScriptableObject>(fileName, reader));
+                    assetName = string.Format("cardata_cockpit_{0}_{1}", FormatIndex(i + 1), (CustomCockpitPartName)i);
+                    container.CustomPartStats.Add(CreateSobjFromBinaryStream<CarStatsSobj>(assetName, reader));
+                    var progress = (offset + i) / total;
+                    EditorUtility.DisplayProgressBar(title, assetName, progress);
                 }
+                offset += numCockpitParts;
+
                 for (int i = 0; i < numBoosterParts; i++)
                 {
-                    string fileName = string.Format("cardata_booster_{0}_{1}", (i + 1).ToString(), (CustomBoosterPartName)i);
-                    container.CustomPartStats.Add(CreateScriptableObjectFromBinaryStream<CarStatsScriptableObject>(fileName, reader));
+                    assetName = string.Format("cardata_booster_{0}_{1}", FormatIndex(i + 1), (CustomBoosterPartName)i);
+                    container.CustomPartStats.Add(CreateSobjFromBinaryStream<CarStatsSobj>(assetName, reader));
+                    var progress = (offset + i) / total;
+                    EditorUtility.DisplayProgressBar(title, assetName, progress);
                 }
+                offset += numBoosterParts;
+                EditorUtility.ClearProgressBar();
             }
             BinaryReaderWriterExtensions.PopEndianess();
         }
+        private string FormatIndex(int index)
+        {
+            return index.ToString(IndexFormat);
+        }
+
         public override void Export()
         {
             string sourceFilePath = Path.Combine(SourcePathFull, fileName).PathToUnityPath();
@@ -90,12 +115,12 @@ namespace GameCube.Games.FZeroGX.IO
             using (BinaryWriter writer = new BinaryWriter(File.Open(exportFilePath, fileMode, fileAccess)))
             {
                 writer.BaseStream.Seek(MachinePtr, SeekOrigin.Begin);
-                foreach (CarStatsScriptableObject carStat in exportData.CarStats)
+                foreach (CarStatsSobj carStat in exportData.CarStats)
                     carStat.Serialize(writer);
 
                 //writer.BaseStream.Seek(CustomPartsPtr, SeekOrigin.Begin);
                 writer.BaseStream.Position = CustomPartsPtr;
-                foreach (CarStatsScriptableObject customPartStats in exportData.CustomPartStats)
+                foreach (CarStatsSobj customPartStats in exportData.CustomPartStats)
                     customPartStats.Serialize(writer);
             }
             EditorUtility.SetDirty(this);

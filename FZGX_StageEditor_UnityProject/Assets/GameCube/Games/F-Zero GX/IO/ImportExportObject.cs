@@ -118,7 +118,7 @@ public abstract class ImportExportObject : ScriptableObject
         AssetDatabase.CreateAsset(so, filePath);
         return so;
     }
-    public ScriptableObjectType CreateScriptableObjectFromBinaryStream<ScriptableObjectType>(string fileName, BinaryReader reader) where ScriptableObjectType : ScriptableObject, IBinarySerializable
+    public ScriptableObjectType CreateSobjFromBinaryStream<ScriptableObjectType>(string fileName, BinaryReader reader) where ScriptableObjectType : ScriptableObject, IBinarySerializable
     {
         ScriptableObjectType so = ScriptableObject.CreateInstance(typeof(ScriptableObjectType)) as ScriptableObjectType;
         string filePath = string.Format("{0}/{1}.asset", importPath, fileName);
