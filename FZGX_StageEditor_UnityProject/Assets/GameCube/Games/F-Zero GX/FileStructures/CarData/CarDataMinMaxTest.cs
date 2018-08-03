@@ -47,7 +47,7 @@ namespace GameCube.Games.FZeroGX.FileStructures.CarData
             min.turnTension = stats.Min(x => x.turnTension);
             min.unused_0x00 = stats.Min(x => x.unused_0x00);
             min.unknownEnumFlags_0x48 = stats.Min(x => x.unknownEnumFlags_0x48);
-            min.unknownEnumFlags_0x49 = stats.Min(x => x.unknownEnumFlags_0x49);
+            min.unknownByte_0x49 = stats.Min(x => x.unknownByte_0x49);
             //min.unknownBool_0x49 = stats.Min(x => x.unknownBool_0x49);
             // Wall collisions
             min.weight = stats.Min(x => x.weight);
@@ -74,7 +74,7 @@ namespace GameCube.Games.FZeroGX.FileStructures.CarData
             max.turnTension = stats.Max(x => x.turnTension);
             max.unused_0x00 = stats.Max(x => x.unused_0x00);
             max.unknownEnumFlags_0x48 = stats.Max(x => x.unknownEnumFlags_0x48);
-            max.unknownEnumFlags_0x49 = stats.Max(x => x.unknownEnumFlags_0x49);
+            max.unknownByte_0x49 = stats.Max(x => x.unknownByte_0x49);
             //max.unknownBool_0x49 = stats.Max(x => x.unknownBool_0x49);
             // Wall collisions
             max.weight = stats.Max(x => x.weight);
@@ -100,7 +100,7 @@ namespace GameCube.Games.FZeroGX.FileStructures.CarData
             QuickTextWriter.WriteTsvLineEndToBuffer("turnTension", $"{min.turnTension}", $"{max.turnTension}");
             QuickTextWriter.WriteTsvLineEndToBuffer("unk0x00", $"{min.unused_0x00}", $"{max.unused_0x00}");
             QuickTextWriter.WriteTsvLineEndToBuffer("unk1", $"{min.unknownEnumFlags_0x48}", $"{max.unknownEnumFlags_0x48}");
-            QuickTextWriter.WriteTsvLineEndToBuffer("unk2", $"{min.unknownEnumFlags_0x49}", $"{max.unknownEnumFlags_0x49}");
+            QuickTextWriter.WriteTsvLineEndToBuffer("unk2", $"{min.unknownByte_0x49}", $"{max.unknownByte_0x49}");
             QuickTextWriter.WriteTsvLineEndToBuffer("unk3", $"{min.unused_0x4A}", $"{max.unused_0x4A}");
             QuickTextWriter.WriteTsvLineEndToBuffer("weight", $"{min.weight}", $"{max.weight}");
             QuickTextWriter.WriteTsvLineEndToBuffer();

@@ -36,9 +36,9 @@ namespace GameCube.Games.FZeroGX.FileStructures.CarData
         [EnumFlags]
         [FormerlySerializedAs("Unk1")]
         public UnknownEnumFlags1 unknownEnumFlags_0x48;
-        [EnumFlags]
         [FormerlySerializedAs("Unk2")]
-        public UnknownEnumFlags2 unknownEnumFlags_0x49;
+        [FormerlySerializedAs("unknownEnumFlags_0x49")]
+        public byte unknownByte_0x49;
         [HideInInspector]
         public ushort unused_0x4A;
         public float cameraReorientation;
@@ -73,7 +73,7 @@ namespace GameCube.Games.FZeroGX.FileStructures.CarData
             drag = reader.GetFloat();
             body = reader.GetFloat();
             unknownEnumFlags_0x48 = (UnknownEnumFlags1)reader.GetByte();
-            unknownEnumFlags_0x49 = (UnknownEnumFlags2)reader.GetByte();
+            unknownByte_0x49 = reader.GetByte();
             unused_0x4A = reader.GetUInt16();
             cameraReorientation = reader.GetFloat();
             cameraRepositioning = reader.GetFloat();
@@ -107,7 +107,7 @@ namespace GameCube.Games.FZeroGX.FileStructures.CarData
             writer.WriteX(drag);
             writer.WriteX(body);
             writer.WriteX((byte)unknownEnumFlags_0x48);
-            writer.WriteX((byte)unknownEnumFlags_0x49);
+            writer.WriteX(unknownByte_0x49);
             writer.WriteX(unused_0x4A);
             writer.WriteX(cameraReorientation);
             writer.WriteX(cameraRepositioning);
