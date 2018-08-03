@@ -27,8 +27,7 @@ namespace GameCube.Games.FZeroGX
         // Stage file
         private static TextAsset stageFile;
         private static Stream fileStream;
-        private static BinaryReader reader;
-        public static BinaryReader Reader { get { return reader; } }
+        public static BinaryReader Reader { get; private set; }
 
         private static StageManager current;
         public static StageManager Current
@@ -74,6 +73,8 @@ namespace GameCube.Games.FZeroGX
         [UnityEditor.Callbacks.DidReloadScripts(int.MinValue)]
         private static void LoadStageFileAndSetStream()
         {
+            string filename = string.Format("{1}/COLI_COURSE{0},lz", ((int)currentStage).ToString("D2"), resourcePath);
+
             try
             {
                 foreach (MonoBehaviour listener in FindObjectsOfType<MonoBehaviour>())
@@ -82,19 +83,14 @@ namespace GameCube.Games.FZeroGX
 
                 // Load file based on name. GX stores it's files as COLI_COURSE##,lz. If the number exceeds 99, the number
                 // section grows with it. ie: COLI_COURSE###,lz
-                string filename = string.Format("{1}/COLI_COURSE{0},lz", ((int)currentStage).ToString("D2"), resourcePath);
-                Debug.Log(filename);
-
                 stageFile = Resources.Load(filename) as TextAsset;
 
                 // Load file as bytes
                 fileStream = new MemoryStream(stageFile.bytes);
                 // Set the reader's stream to the loaded file
-                reader = new BinaryReader(fileStream, System.Text.Encoding.UTF8);
+                Reader = new BinaryReader(fileStream, System.Text.Encoding.UTF8);
 
-                //foreach (IFZGXEditorStageEventReceiver listener in FindObjectsOfType<MonoBehaviour>())
-                //    listener.StageLoaded(reader);
-                foreach (MonoBehaviour listener in FindObjectsOfType<MonoBehaviour>())
+                foreach (var listener in FindObjectsOfType<MonoBehaviour>())
                     if (listener is IFZGXEditorStageEventReceiver)
                         ((IFZGXEditorStageEventReceiver)listener).StageLoaded(Reader);
 
@@ -105,7 +101,7 @@ namespace GameCube.Games.FZeroGX
             }
             catch
             {
-                Debug.Log("Failed to load scene file.");
+                Debug.Log($"Failed to load scene file at path '{filename}'");
             }
         }
     }

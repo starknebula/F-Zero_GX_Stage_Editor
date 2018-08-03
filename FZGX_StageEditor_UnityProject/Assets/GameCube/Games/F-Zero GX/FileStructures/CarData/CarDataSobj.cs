@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameCube.Games.FZeroGX.FileStructures
+namespace GameCube.Games.FZeroGX.FileStructures.CarData
 {
     [CreateAssetMenu(fileName = "CarData Container", menuName = "FZGX ScriptableObject/CarData Container")]
     public class CarDataSobj : ScriptableObject

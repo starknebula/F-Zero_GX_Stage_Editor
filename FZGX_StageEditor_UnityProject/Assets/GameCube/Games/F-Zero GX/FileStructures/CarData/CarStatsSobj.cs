@@ -4,8 +4,9 @@
 
 using System.IO;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-namespace GameCube.Games.FZeroGX.FileStructures
+namespace GameCube.Games.FZeroGX.FileStructures.CarData
 {
     // Structure
     // https://github.com/yoshifan/fzerogx-docs/blob/master/addresses/base_machine_stat_blocks.md
@@ -13,8 +14,9 @@ namespace GameCube.Games.FZeroGX.FileStructures
     [CreateAssetMenu(fileName = "CarData", menuName = "FZGX ScriptableObject/CarData")]
     public class CarStatsSobj : ScriptableObject, IBinarySerializable
     {
-        public float unk0x00;
-        public float machineWeight;
+        [HideInInspector]
+        public uint unused_0x00;
+        public float weight;
         public float acceleration;
         public float maxSpeed;
         public float grip1;
@@ -31,9 +33,14 @@ namespace GameCube.Games.FZeroGX.FileStructures
         public float turnDeceleration;
         public float drag;
         public float body;
-        public byte unk1;
-        public byte unk2;
-        public short unk3;
+        [EnumFlags]
+        [FormerlySerializedAs("Unk1")]
+        public UnknownEnumFlags1 unknownEnumFlags_0x48;
+        [EnumFlags]
+        [FormerlySerializedAs("Unk2")]
+        public UnknownEnumFlags2 unknownEnumFlags_0x49;
+        [HideInInspector]
+        public ushort unused_0x4A;
         public float cameraReorientation;
         public float cameraRepositioning;
         public Vector3 tiltFrontRight;
@@ -47,8 +54,8 @@ namespace GameCube.Games.FZeroGX.FileStructures
 
         public void Deserialize(BinaryReader reader)
         {
-            unk0x00 = reader.GetFloat();
-            machineWeight = reader.GetFloat();
+            unused_0x00 = reader.GetUInt32();
+            weight = reader.GetFloat();
             acceleration = reader.GetFloat();
             maxSpeed = reader.GetFloat();
             grip1 = reader.GetFloat();
@@ -65,9 +72,9 @@ namespace GameCube.Games.FZeroGX.FileStructures
             turnDeceleration = reader.GetFloat();
             drag = reader.GetFloat();
             body = reader.GetFloat();
-            unk1 = reader.GetByte();
-            unk2 = reader.GetByte();
-            unk3 = reader.GetInt16();
+            unknownEnumFlags_0x48 = (UnknownEnumFlags1)reader.GetByte();
+            unknownEnumFlags_0x49 = (UnknownEnumFlags2)reader.GetByte();
+            unused_0x4A = reader.GetUInt16();
             cameraReorientation = reader.GetFloat();
             cameraRepositioning = reader.GetFloat();
             tiltFrontRight = reader.GetVector3();
@@ -81,8 +88,8 @@ namespace GameCube.Games.FZeroGX.FileStructures
         }
         public void Serialize(BinaryWriter writer)
         {
-            writer.WriteX(unk0x00);
-            writer.WriteX(machineWeight);
+            writer.WriteX(unused_0x00);
+            writer.WriteX(weight);
             writer.WriteX(acceleration);
             writer.WriteX(maxSpeed);
             writer.WriteX(grip1);
@@ -99,9 +106,9 @@ namespace GameCube.Games.FZeroGX.FileStructures
             writer.WriteX(turnDeceleration);
             writer.WriteX(drag);
             writer.WriteX(body);
-            writer.WriteX(unk1);
-            writer.WriteX(unk2);
-            writer.WriteX(unk3);
+            writer.WriteX((byte)unknownEnumFlags_0x48);
+            writer.WriteX((byte)unknownEnumFlags_0x49);
+            writer.WriteX(unused_0x4A);
             writer.WriteX(cameraReorientation);
             writer.WriteX(cameraRepositioning);
             writer.WriteX(tiltFrontRight);

@@ -8,7 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using GameCube.Games.FZeroGX.FileStructures;
+using GameCube.Games.FZeroGX.FileStructures.CarData;
 
 namespace GameCube.Games.FZeroGX.IO
 {

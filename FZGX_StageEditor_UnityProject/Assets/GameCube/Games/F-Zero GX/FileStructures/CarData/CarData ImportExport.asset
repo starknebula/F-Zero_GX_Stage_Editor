@@ -17,7 +17,7 @@ MonoBehaviour:
   debugSavePath: 1
   sourceExtension: 
   sourcePath: D:/Github/F-Zero_GX_Stage_Editor/FZGX_EN/game
-  importPath: Assets/GameCube/Games/F-Zero GX/IO/ImportedScriptableObjects/CarData
+  importPath: Assets/Personal/ImportedScriptableObjects/CarData
   exportPath: Assets/GameCube/Games/F-Zero GX/IO/ExportedScriptableObjects/CarData
   fileName: cardata,lz
-  exportData: {fileID: 11400000, guid: ebc1e2d8acfd5c04db58113bba3c9f93, type: 2}
+  exportData: {fileID: 11400000, guid: 8a0546f3490ee5f469aca5f7463622c7, type: 2}
