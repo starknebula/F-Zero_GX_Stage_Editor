@@ -6,14 +6,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GameCube.Games.FZeroGX.FileStructures
+namespace GameCube.Games.FZeroGX.FileStructures.CarData
 {
     [CreateAssetMenu(fileName = "CarData Container", menuName = "FZGX ScriptableObject/CarData Container")]
-    public class CarDataScriptableObject : ScriptableObject
+    public class CarDataSobj : ScriptableObject
     {
         [SerializeField]
-        protected List<CarStatsScriptableObject> carStats = new List<CarStatsScriptableObject>();
-        public List<CarStatsScriptableObject> CarStats
+        protected List<CarStatsSobj> carStats = new List<CarStatsSobj>();
+        public List<CarStatsSobj> CarStats
         {
             get
             {
@@ -26,8 +26,8 @@ namespace GameCube.Games.FZeroGX.FileStructures
         }
 
         [SerializeField]
-        protected List<CarStatsScriptableObject> customPartStats = new List<CarStatsScriptableObject>();
-        public List<CarStatsScriptableObject> CustomPartStats
+        protected List<CarStatsSobj> customPartStats = new List<CarStatsSobj>();
+        public List<CarStatsSobj> CustomPartStats
         {
             get
             {

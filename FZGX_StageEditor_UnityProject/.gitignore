@@ -1,12 +1,9 @@
 #F-ZERO GX SOURCE FILES IGNORE
-/Assets/Resources/FZGX_JP
-/Assets/Resources/FZGX_PAL
-/Assets/Resources/FZGX_EN
 /Assets/Resources/COLI
 /Assets/Resources/GMA
 /Assets/Resources/TPL
-/Assets/GameCube/Games/F-Zero\ GX/IO
 /Assets/Personal/
+/Assets/Resources/Personal/
 
 
 # UNITY GITIGNORE

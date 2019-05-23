@@ -81,6 +81,7 @@ public class Stage_Editor : Editor {
         base.OnInspectorGUI();
         editorTarget = target as StageManager;
 
+        // TODO: add browse button
         StageManager.resourcePath = EditorGUILayout.TextField(StageManager.resourcePath);
 
         // Label that displays current stage

@@ -6,17 +6,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+using System.Text.RegularExpressions;
 namespace System.IO
 {
     public static class FilePathUtility
     {
-        public static string PathToSystemPath(this string value)
+        public static string PathToUnityPath(this string value)
         {
-//#if UNITY_EDITOR_WIN
-//            return value.Replace("/", "\\");
-//#elif UNITY_EDITOR_LINUX || UNITY_EDITOR_OSX
-        return value.Replace("\\", "/");
-//#endif
+            return value.Replace("\\", "/");
         }
+
+        /// <summary>
+        /// Returns the path starting after Assets/
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static string TrimDirectoryToAssets(string path)
+        {
+            return Regex.Match(path, "(?<=Assets/).*$").Value;
+        }
+
+        //
+        public static string TrimDirectoryToResources(string path)
+        {
+            return Regex.Match(path, "(?<=Resources/).*$").Value;
+        }
+        public static string AssetsPath => Application.dataPath;
     }
 }
